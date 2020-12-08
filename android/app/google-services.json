@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650297032796",
+    "project_id": "shubh-wed",
+    "storage_bucket": "shubh-wed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650297032796:android:abae06350cc9304cb92699",
+        "android_client_info": {
+          "package_name": "com.shadi.shubhwed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650297032796-q9elt0hgfikub78e0ckpo9agso46rif7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzeES1WMYHXG4bSzw2iZ79Uf2IiWpWLEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650297032796-q9elt0hgfikub78e0ckpo9agso46rif7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
