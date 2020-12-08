@@ -253,6 +253,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(),
                 child: RaisedButton(
+                  color: kPink,
                   onPressed:registerUser ,
                   elevation: 5,
                   shape: RoundedRectangleBorder(

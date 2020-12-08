@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'utils/constants.dart';
 import 'screens/onboarding_screen.dart';
 
-void main() {
+void main() async{
+
   runApp(MyApp());
 }
 
