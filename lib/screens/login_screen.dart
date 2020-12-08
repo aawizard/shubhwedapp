@@ -37,48 +37,46 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height/17,
               ),
-              Padding(
+                Padding(
 
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      color: Colors.grey,
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                    ),
-                    Text("Log In",
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.grey,
+                        onPressed: (){},
+                      ),
+                      Text("Log In",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width/13,
-                        fontWeight: FontWeight.w700,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width/13,
+                          fontWeight: FontWeight.w700,
 
+                        ),
                       ),
-                    ),
-                    FlatButton(
-                      onPressed:(){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => signUpScreen()),
-                        );
-                      },
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(color: kPink),
+                      FlatButton(
+                        onPressed:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => signUpScreen()),
+                          );
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: kPink),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
               SizedBox(height: MediaQuery.of(context).size.height/10,),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 25),
@@ -122,46 +120,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: BoxDecoration(
                   ),
                   child: RaisedButton(
-                    elevation: 5,
+                      elevation: 5,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                     child: Text("Log In",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),
                     onPressed: () async {
-                      if (email == null || password == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Enter all details."),
+                    if (email == null || password == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Enter all details."),
+                      ));
+                    } else {
+                      try {
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                                print(userCredential);
+                        Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) {
+                            return MainWidget();
+                          },
                         ));
-                      } else {
-                        try {
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .signInWithEmailAndPassword(
-                              email: email, password: password);
-                          print(userCredential);
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) {
-                              return MainWidget();
-                            },
-                          ));
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text("No user found for that email.")));
-                          } else if (e.code == 'wrong-password') {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text("Wrong password provided.")));
-                          }
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Some error occured.")));
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("No user found for that email.")));
+                        } else if (e.code == 'wrong-password') {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Wrong password provided.")));
                         }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Some error occured.")));
                       }
-                    },
+                    }
+                  },
                     color: kPink,
                   ),
                 ),

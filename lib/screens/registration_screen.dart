@@ -42,29 +42,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       return users
           .doc("${widget.uid}")
           .set({
-        'uid': widget.uid ?? '',
-        'email': widget.email ?? '',
-        'brideName': brideName ?? '',
-        'brideGroomName': brideGroomname ?? '',
-        'venue': venue ?? '',
-        'deliveryAddress': deliveryAddr ?? '',
-        'bankAccountNumber': bankACNo ?? '',
-        'ifscCode': ifscCode ?? '',
-        'accountHolderName': acHoldername ?? '',
-        'payTmNumber': payTmNo ?? '',
-        'gPayNumber': gPayNo ?? '',
-        'upiID': upiID ?? '',
-        'date': selectedDateTime ?? ''
-      })
+            'uid': widget.uid ?? '',
+            'email': widget.email ?? '',
+            'brideName': brideName ?? '',
+            'brideGroomName': brideGroomname ?? '',
+            'venue': venue ?? '',
+            'deliveryAddress': deliveryAddr ?? '',
+            'bankAccountNumber': bankACNo ?? '',
+            'ifscCode': ifscCode ?? '',
+            'accountHolderName': acHoldername ?? '',
+            'payTmNumber': payTmNo ?? '',
+            'gPayNumber': gPayNo ?? '',
+            'upiID': upiID ?? '',
+            'date': selectedDateTime ?? ''
+          })
           .then(
             (value) => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MainWidget()),
-        ),
-      )
+              context,
+              MaterialPageRoute(builder: (context) => MainWidget()),
+            ),
+          )
           .catchError(
             (error) => print("Some error occured while registering"),
-      );
+          );
     }
 
     return Scaffold(
@@ -132,7 +132,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   );
                   if (picked != null && picked != selectedDateTime) {
                     setState(
-                          () {
+                      () {
                         selectedDateTime = picked;
                       },
                     );
@@ -271,7 +271,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
-
+      
     );
   }
 }

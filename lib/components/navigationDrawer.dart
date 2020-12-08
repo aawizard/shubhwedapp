@@ -93,7 +93,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
                 child: Image.asset("assets/shubhwed.png",
-                  width: MediaQuery.of(context).size.width/2,),
+                width: MediaQuery.of(context).size.width/2,),
               )
 //              Text(
 //                userLoad.name??'',

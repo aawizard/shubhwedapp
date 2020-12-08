@@ -43,8 +43,8 @@ class DrawerItem extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 16, right: 20),
                   child: Icon(
-                    icon,
-                    color: Colors.black,
+                      icon,
+                      color: Colors.black,
                     size: MediaQuery.of(context).size.width/13,
 
                   ),
@@ -52,8 +52,8 @@ class DrawerItem extends StatelessWidget {
                 Text(
                   text,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
                     fontSize: MediaQuery.of(context).size.width/17,
                   ),
                 )

@@ -96,7 +96,7 @@ class _AppItroState extends State<AppItro> {
 //                    SvgPicture.asset("assets/logo.svg",
 //                      width: MediaQuery.of(context).size.width/4,
 //                    ),
-              ),
+                  ),
 //                  SizedBox(
 //                    width: MediaQuery.of(context).size.width/6,
 //                  ),
@@ -137,8 +137,8 @@ class _AppItroState extends State<AppItro> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: description[widget.index],
-                                    ),
+                                        text: description[widget.index],
+                                        ),
                                   ])),
                         ),
                       ],
@@ -175,7 +175,7 @@ class _AppItroState extends State<AppItro> {
                           color: textColor,
                           fontWeight: FontWeight.w500 //
 
-                      ),
+                          ),
                     ),
                   )),
               //Done Button
@@ -184,34 +184,34 @@ class _AppItroState extends State<AppItro> {
                   bottom: 15,
                   child: widget.index < 2
                       ? Padding(
-                    //no. of screens -1
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Swipe Right -->",
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
-                    ),
-                  )
+                          //no. of screens -1
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Swipe Right -->",
+                            style: TextStyle(
+                              color: textColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                          ),
+                        )
                       : FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => signUpScreen()),
-                      );
-                    },
-                    child: Text(
-                      "Start",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: textColor,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => signUpScreen()),
+                            );
+                          },
+                          child: Text(
+                            "Start",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: textColor,
 //
-                      ),
-                    ),
-                  ))
+                            ),
+                          ),
+                        ))
             ],
           ),
         ),
@@ -242,13 +242,13 @@ class _DotsState extends State<Dots> {
       itemCount: 3,
       itemBuilder: (context, int index) {
         return Container(
-          margin: EdgeInsets.only(right: index != 2 ? 3 : 0),
-          width: 15,
-          height: 15,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == widget.index ? kSkin : kGrey,
-          ),
+            margin: EdgeInsets.only(right: index != 2 ? 3 : 0),
+            width: 15,
+            height: 15,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: index == widget.index ? kSkin : kGrey,
+            ),
         );
       },
     );
