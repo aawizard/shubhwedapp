@@ -45,40 +45,51 @@ class _giftListScreenState extends State<giftListScreen> {
             ],
             backgroundColor: kDarkPink,
           ),
-          body: Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-//              gradient: LinearGradient(
-//                begin: Alignment.topCenter,
-//                end: Alignment.bottomCenter,
-//                colors: [
-//                  kDarkPink,
-//                  // Color(0xFFD9A2EF),
-//                  kSkin,
-//                  // Color(0xFFEBE7F6),
-//                ],
-//              ),
-              color:Colors.white,
+          body: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              children: <Widget>[
+                giftCard()
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: <Widget>[
-                  Card(
-                    color: Color(0xfffbb4ba),
-                    child: Column(
-                      children: [
-                          Text("Name",
-                          )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
           ),
         ));
+  }
+}
+
+class giftCard extends StatefulWidget {
+  const giftCard({
+    Key key, this.imageUrl='', this.giftName, this.giftStatus = false, this.Price, this.giftUrl ='', this.details='',
+  }) : super(key: key);
+final String imageUrl;
+final String giftName;
+final bool giftStatus;
+final double Price;
+final String giftUrl;
+final String details;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+onTap: (){
+
+},
+      child: Card(
+
+        color: Color(0xfffbb4ba),
+        child: Column(
+          children: [
+
+              Text("Name",)
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }

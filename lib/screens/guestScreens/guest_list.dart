@@ -36,11 +36,13 @@ class _guestListScreenState extends State<guestListScreen> {
         ),
         body: Column(
           children: [
-            Center(
-              child: guestCard(
-                name: "hello",
-                invitationStatus: true,
-              ),
+            guestCard(
+              name: "hello",
+              invitationStatus: false,
+            ),
+            guestCard(
+              name: "hello",
+              invitationStatus: true,
             ),
           ],
         ),
@@ -79,6 +81,7 @@ class guestCard extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: kDarkPink,
       leading: Image.network(imageURL),
       title: Text(
         name,
