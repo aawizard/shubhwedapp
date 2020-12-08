@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:shubhwed_web/models/item.dart';
 import 'package:shubhwed_web/widgets/fittedText.dart';
+import 'package:shubhwed_web/widgets/giftGrid.dart';
 import 'package:shubhwed_web/widgets/instruction_item.dart';
 
 void main() {
@@ -22,6 +24,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+   List<Item> items=List<Item>(3);
+   Item item=Item('assets/shubhwed.png', '1212', 12, 2, false); 
+  
+  
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -173,11 +179,73 @@ class MyHomePage extends StatelessWidget {
                     'The couple is informed as soon as you get them a gift.Other guest will not know of your purchase',
                     width,
                     height),
-                InstructionItem(Icons.ac_unit, "Direct Delivery", "Gift and message is shipped directly to couple,unless you choose it to have it to sent to you ", width, height),
+                InstructionItem(
+                    Icons.ac_unit,
+                    "Direct Delivery",
+                    "Gift and message is shipped directly to couple,unless you choose it to have it to sent to you ",
+                    width,
+                    height),
               ],
             ),
-          )
+          ),
+          SizedBox(height: height*0.01,),
+          Container(
+             height: width*0.4,
+             width: width*0.6,
+     
+            //padding: EdgeInsets.all(16.0),
+            child: GridView.builder(
+              itemCount: 6,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 8.0),
+              itemBuilder: (BuildContext context, int index) {
+                return GiftGrid(item,height,width);
+              },
+            ),
+          ),
+            Text(
+            'RSVP ',
+            style: TextStyle(
+                fontSize: (25 / 720) * MediaQuery.of(context).size.width,
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+          Center(
+            child: Container(
+              width: width * 0.25,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: height * 0.005,
+                    width: width * 0.07,
+                    color: Colors.black,
+                  ),
+                  CircleAvatar(
+                    radius: width * 0.01,
+                    backgroundColor: Colors.pink,
+                  ),
+                  CircleAvatar(
+                    radius: width * 0.01,
+                    backgroundColor: Colors.pink,
+                  ),
+                  CircleAvatar(
+                    radius: width * 0.01,
+                    backgroundColor: Colors.pink,
+                  ),
+                  Container(
+                    height: height * 0.005,
+                    width: width * 0.07,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
+
       ),
     );
   }
