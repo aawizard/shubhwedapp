@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "650297032796",
-    "project_id": "shubh-wed",
-    "storage_bucket": "shubh-wed.appspot.com"
+    "project_number": "319662045992",
+    "project_id": "shubh-wed-88d94",
+    "storage_bucket": "shubh-wed-88d94.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:650297032796:android:abae06350cc9304cb92699",
+        "mobilesdk_app_id": "1:319662045992:android:dec1a7d08c5f0f455b2e1d",
         "android_client_info": {
           "package_name": "com.shadi.shubhwed"
         }
       },
       "oauth_client": [
         {
-          "client_id": "650297032796-q9elt0hgfikub78e0ckpo9agso46rif7.apps.googleusercontent.com",
+          "client_id": "319662045992-pkqa3j86tof3prd1t5uh1hng9upm6l8d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAzeES1WMYHXG4bSzw2iZ79Uf2IiWpWLEY"
+          "current_key": "AIzaSyC_RvLs51nLTX9fbiAMLAS662x6oyupeKg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "650297032796-q9elt0hgfikub78e0ckpo9agso46rif7.apps.googleusercontent.com",
+              "client_id": "319662045992-pkqa3j86tof3prd1t5uh1hng9upm6l8d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
