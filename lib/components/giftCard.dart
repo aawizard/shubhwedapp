@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shubhwed/utils/constants.dart';
-class EventCard extends StatefulWidget {
+class giftCard extends StatefulWidget {
   final String imageUrl;
   final String giftName;
   final bool giftStatus;
@@ -10,24 +10,26 @@ class EventCard extends StatefulWidget {
   final String giftUrl;
   final String details;
 
-  const EventCard(
+  const giftCard(
       {Key key,
-      this.imageUrl, this.giftName, this.giftStatus, this.Price, this.giftUrl, this.details})
+      this.imageUrl,@required this.giftName,@required this.giftStatus, this.Price, this.giftUrl, this.details})
       : super(key: key);
   @override
-  _EventCardState createState() => _EventCardState( imageUrl,giftName,giftStatus,Price,giftUrl,details);
+  _giftCardState createState() => _giftCardState( imageUrl,giftName,giftStatus,Price,giftUrl,details);
 }
 
-class _EventCardState extends State<EventCard> {
+class _giftCardState extends State<giftCard> {
+
   final String imageUrl;
   final String giftName;
   final bool giftStatus;
   final double Price;
   final String giftUrl;
   final String details;
-  _EventCardState(this.imageUrl, this.giftName, this.giftStatus, this.Price, this.giftUrl, this.details);
+  _giftCardState(this.imageUrl, this.giftName, this.giftStatus, this.Price, this.giftUrl, this.details);
   @override
   Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         return showGeneralDialog(
@@ -65,7 +67,7 @@ class _EventCardState extends State<EventCard> {
                             padding: const EdgeInsets.all(5.0),
                             child: FadeInImage.assetNetwork(
                               image: imageUrl,
-                              placeholder: 'assets/greySquare.JPG',
+                              placeholder: 'assets/shubhwed.png',
                             ),
                           ),
                           SizedBox(
@@ -120,36 +122,44 @@ class _EventCardState extends State<EventCard> {
       },
 
       child: Padding(
-        padding: const EdgeInsets.all(7.0),
-        child: Card(
-
-          color: Color(0xffFBB4BA),
-          borderOnForeground: false,
-          elevation: 20,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          child: Card(
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Color(0xffFBB4BA),
+//            borderOnForeground: false,
+            elevation: 10,
             child: Container(
-              width: MediaQuery.of(context).size.width/2 -40,
-              child: Column(
-                children: <Widget>[
-                  Image(
-                    image: imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(imageUrl),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      giftName,
-                      maxLines: 2,
-                      style: TextStyle(fontSize: 25,
-                          fontWeight: FontWeight.w600),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                  Container(
+                    width:width/2 -34 ,
+                    height: width/2 -34,
+                    child: Image(
+                      image: imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(imageUrl,
+                      ),
+
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child:giftStatus==true? Text("Recieved",style: TextStyle(color: Colors.green),
-                    ):Text("Not Recieved", style: TextStyle(color: Colors.red),),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        giftName,
+                        maxLines: 2,
+                        style: TextStyle(fontSize: 25,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:giftStatus==true? Text("Recieved",style: TextStyle(color: Colors.green),
+                      ):Text("Not Recieved", style: TextStyle(color: Colors.red),),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

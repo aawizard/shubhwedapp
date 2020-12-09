@@ -20,39 +20,41 @@ class _guestListScreenState extends State<guestListScreen> {
 
     return WillPopScope(
       onWillPop: _onBackPress,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.menu,
+              ),
+              onPressed: widget.onMenuPressed,
             ),
-            onPressed: widget.onMenuPressed,
-          ),
-          title: Text(
-            "Guest List",
-            style: GoogleFonts.bitter(),
-          ),
-          backgroundColor: kDarkPink,
-        ),
-        body: Column(
-          children: [
-            guestCard(
-              name: "hello",
-              invitationStatus: false,
+            title: Text(
+              "Guest List",
+              style: GoogleFonts.bitter(),
             ),
-            guestCard(
-              name: "hello",
-              invitationStatus: true,
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(
-            Icons.person_add,
-            color: Colors.white,
+            backgroundColor: kDarkPink,
           ),
-          backgroundColor: kDarkPink,
+          body: Column(
+            children: [
+              guestCard(
+                name: "hello",
+                invitationStatus: false,
+              ),
+              guestCard(
+                name: "hello",
+                invitationStatus: true,
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.person_add,
+              color: Colors.white,
+            ),
+            backgroundColor: kDarkPink,
+          ),
         ),
       ),
     );
