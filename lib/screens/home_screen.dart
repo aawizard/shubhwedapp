@@ -29,7 +29,7 @@ class _homeScreenState extends State<homeScreen>
 
   getDataFromFirestore() {
     FirebaseFirestore.instance.collection('users').doc(uid).get().then((doc) {
-      // print("email: ${doc.get('email')}");
+      print("email: ${doc.get('email')}");
       setState(() {
         bride = doc.get('brideName');
         groom = doc.get('brideGroomName');
