@@ -52,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         'payTmNumber': payTmNo ?? '',
         'gPayNumber': gPayNo ?? '',
         'upiID': upiID ?? '',
-        'date': selectedDateTime ?? ''
+        'date': selectedDateTime.toString().split(" ")[0] ?? ''
       }).then((value) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('uid', widget.uid);

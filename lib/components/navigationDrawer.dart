@@ -11,8 +11,9 @@ import 'package:shubhwed/screens/home_screen.dart';
 import 'package:shubhwed/screens/guestScreens/guest_list.dart';
 
 class MainWidget extends StatefulWidget {
-  MainWidget({Key key, this.title}) : super(key: key);
+  MainWidget({Key key, this.title, this.uid}) : super(key: key);
   final String title;
+  final String uid;
 
   @override
   _MainWidgetState createState() => _MainWidgetState();

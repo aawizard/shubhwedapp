@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shubhwed/components/drawer.dart';
@@ -7,13 +6,10 @@ import 'package:shubhwed/utils/constants.dart';
 import '../utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
 
 //TODO: Set these variables from firebase
-String bride = "Amma Lorean";
-String groom = "Mark Themson";
-String date = "20,Aug 2021";
-
 
 class homeScreen extends DrawerContent {
   static const String id = 'home_screen';
@@ -23,8 +19,36 @@ class homeScreen extends DrawerContent {
 
 class _homeScreenState extends State<homeScreen>
     with SingleTickerProviderStateMixin {
+  String bride = "Amma Lorean";
+  String groom = "Mark Themson";
+  String date = "20,Aug 2021";
+  FirebaseFirestore firestore;
   Animation animation;
   AnimationController controller;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  getDataFromFirestore() {
+    FirebaseFirestore.instance.collection('users').doc(uid).get().then((doc) {
+      // print("email: ${doc.get('email')}");
+      setState(() {
+        bride = doc.get('brideName');
+        groom = doc.get('brideGroomName');
+        print("date: ${doc.get('date')}");
+        date = doc.get('date').toString().split(" ")[0];
+      });
+    });
+  }
+
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  String uid;
+  getUID() {
+    prefs.then((value) {
+      setState(() {
+        uid = value.getString('uid');
+      });
+      getDataFromFirestore();
+    });
+  }
 
   @override
   void initState() {
@@ -39,6 +63,7 @@ class _homeScreenState extends State<homeScreen>
     controller.addListener(() {
       setState(() {});
     });
+    getUID();
   }
 
   @override
@@ -106,7 +131,8 @@ class _homeScreenState extends State<homeScreen>
                   text: "with your presence",
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                   child: Image.asset(
                     "assets/redSeprator.png",
                     width: width * .9,
@@ -114,12 +140,16 @@ class _homeScreenState extends State<homeScreen>
                 ),
                 Text(
                   "$bride & $groom",
-                  style:
-                      GoogleFonts.charm(color: Color(0xffF9190A), fontSize: width/20,fontWeight: FontWeight.w700),
+                  style: GoogleFonts.charm(
+                      color: Color(0xffF9190A),
+                      fontSize: width / 20,
+                      fontWeight: FontWeight.w700),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: homePageText(text: "$date",),
+                  child: homePageText(
+                    text: "$date",
+                  ),
                 ),
               ],
             ),
@@ -143,7 +173,9 @@ class homePageText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          color: Colors.white, fontFamily: 'BalsamiqSans', fontSize: MediaQuery.of(context).size.width/25),
+          color: Colors.white,
+          fontFamily: 'BalsamiqSans',
+          fontSize: MediaQuery.of(context).size.width / 25),
       textAlign: TextAlign.center,
     );
   }
