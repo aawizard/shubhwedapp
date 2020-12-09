@@ -3,8 +3,8 @@ import 'package:shubhwed/components/drawer.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shubhwed/screens/guestScreens/guestDetails.dart';
 
+import 'package:shubhwed/components/guestcard.dart';
 class guestListScreen extends DrawerContent {
   @override
   _guestListScreenState createState() => _guestListScreenState();
@@ -35,17 +35,23 @@ class _guestListScreenState extends State<guestListScreen> {
             ),
             backgroundColor: kDarkPink,
           ),
-          body: Column(
-            children: [
-              guestCard(
-                name: "hello",
-                invitationStatus: false,
-              ),
-              guestCard(
-                name: "hello",
-                invitationStatus: true,
-              ),
-            ],
+          body: Padding(
+            padding:  EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+
+                guestCard(
+                  name: "hello",
+                  invitationStatus: true,
+                  gift: "phone",
+                  email: "hello@gmail.com",
+                  guestNumber: 3,
+                  imageURL: "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+
+                ),
+
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
@@ -61,65 +67,73 @@ class _guestListScreenState extends State<guestListScreen> {
   }
 }
 
-class guestCard extends StatefulWidget {
-  const guestCard({
-    Key key,
-    @required this.name,
-    @required this.invitationStatus,
-    this.imageURL = "",
-    this.guestNumber = 1,
-    this.phoneNo,
-    this.email,
-    this.gift,
-  }) : super(key: key);
-  final String name;
-  final bool invitationStatus;
-  final String imageURL;
-  final int guestNumber;
-  final String phoneNo;
-  final String email;
-  final String gift;
 
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: kDarkPink,
-      leading: Image.network(imageURL),
-      title: Text(
-        name,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.bitter(fontWeight: FontWeight.w700),
-      ),
-      subtitle: invitationStatus == true
-          ? Text(
-              "Invitation Sent",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.bitter(color: Colors.green),
-            )
-          : Text(
-              "Invitation not Sent",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.bitter(color: Colors.red),
-            ),
-      trailing: Text("+$guestNumber"),
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return guestDetails(
-              name: name,
-              imageUrl: imageURL,
-              phoneNo: phoneNo,
-              email: email,
-            );
-          },
-        ));
-      },
-    );
-  }
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-}
+
+
+//class guestCard extends StatefulWidget {
+//  const guestCard({
+//    Key key,
+//    @required this.name,
+//    @required this.invitationStatus,
+//    this.imageURL ,
+//    this.guestNumber ,
+//    this.phoneNo,
+//    this.email,
+//    this.gift,
+//  }) : super(key: key);
+//  final String name;
+//  final bool invitationStatus;
+//  final String imageURL;
+//  final int guestNumber;
+//  final String phoneNo;
+//  final String email;
+//  final String gift;
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return ListTile(
+//      tileColor: kDarkPink,
+//      leading: FadeInImage.assetNetwork(
+//        image: imageURL,
+//        placeholder: 'assets/shubhwed.png',
+//      ),
+//
+//      title: Text(
+//        name,
+//        textAlign: TextAlign.center,
+//        style: GoogleFonts.bitter(fontWeight: FontWeight.w700),
+//      ),
+//      subtitle: invitationStatus == true
+//          ? Text(
+//              "Invitation Sent",
+//              textAlign: TextAlign.center,
+//              style: GoogleFonts.bitter(color: Colors.green),
+//            )
+//          : Text(
+//              "Invitation not Sent",
+//              textAlign: TextAlign.center,
+//              style: GoogleFonts.bitter(color: Colors.red),
+//            ),
+//      trailing: Text("+$guestNumber"),
+//      onTap: () {
+//        Navigator.push(context, MaterialPageRoute(
+//          builder: (context) {
+//            return guestDetails(
+//              name: name,
+//              imageUrl: imageURL,
+//              phoneNo: phoneNo,
+//              email: email,
+//            );
+//          },
+//        ));
+//      },
+//    );
+//  }
+//
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    throw UnimplementedError();
+//  }
+//}
