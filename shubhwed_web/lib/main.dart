@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:shubhwed_web/models/item.dart';
+import 'package:shubhwed_web/widgets/attendStatus.dart';
 import 'package:shubhwed_web/widgets/fittedText.dart';
 import 'package:shubhwed_web/widgets/giftGrid.dart';
+import 'package:shubhwed_web/widgets/guestDetails.dart';
 import 'package:shubhwed_web/widgets/instruction_item.dart';
 
 void main() {
@@ -244,6 +246,32 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
+        SizedBox(
+          height: height*0.05,
+        ),
+         Text(
+            'Please let us know whether  you attend  our wedding  ',
+            style: TextStyle(
+                fontSize: (12 / 720) * MediaQuery.of(context).size.width,
+                color: Colors.black,
+                ),
+          ),
+           SizedBox(
+          height: height*0.02,
+        ),
+
+         AttendStatus(),
+         SizedBox(
+          height: height*0.02,
+        ),
+
+        GuestDetails(),
+
+
+
+         
+        
+
         ],
 
       ),
