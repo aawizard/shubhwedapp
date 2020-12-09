@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shubhwed/screens/home_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
+
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({this.uid, this.email});
@@ -39,32 +39,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     Future<void> registerUser() {
-      return users
-          .doc("${widget.uid}")
-          .set({
-            'uid': widget.uid ?? '',
-            'email': widget.email ?? '',
-            'brideName': brideName ?? '',
-            'brideGroomName': brideGroomname ?? '',
-            'venue': venue ?? '',
-            'deliveryAddress': deliveryAddr ?? '',
-            'bankAccountNumber': bankACNo ?? '',
-            'ifscCode': ifscCode ?? '',
-            'accountHolderName': acHoldername ?? '',
-            'payTmNumber': payTmNo ?? '',
-            'gPayNumber': gPayNo ?? '',
-            'upiID': upiID ?? '',
-            'date': selectedDateTime ?? ''
-          })
-          .then(
-            (value) => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MainWidget()),
-            ),
-          )
-          .catchError(
-            (error) => print("Some error occured while registering"),
-          );
+      return users.doc("${widget.uid}").set({
+        'uid': widget.uid ?? '',
+        'email': widget.email ?? '',
+        'brideName': brideName ?? '',
+        'brideGroomName': brideGroomname ?? '',
+        'venue': venue ?? '',
+        'deliveryAddress': deliveryAddr ?? '',
+        'bankAccountNumber': bankACNo ?? '',
+        'ifscCode': ifscCode ?? '',
+        'accountHolderName': acHoldername ?? '',
+        'payTmNumber': payTmNo ?? '',
+        'gPayNumber': gPayNo ?? '',
+        'upiID': upiID ?? '',
+        'date': selectedDateTime ?? ''
+      }).then((value) async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('uid', widget.uid);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MainWidget()),
+        );
+      }).catchError(
+        (error) => print("Some error occured while registering"),
+      );
     }
 
     return Scaffold(
@@ -254,7 +252,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 decoration: BoxDecoration(),
                 child: RaisedButton(
                   color: kPink,
-                  onPressed:registerUser ,
+                  onPressed: registerUser,
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
@@ -271,7 +269,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
-      
     );
   }
 }
