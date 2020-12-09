@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
 import 'package:shubhwed/components/drawer.dart';
@@ -39,42 +40,97 @@ class _giftListScreenState extends State<giftListScreen> {
     }
 
     return WillPopScope(
-        onWillPop: _onBackPress,
-        child: SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                ),
-                onPressed: widget.onMenuPressed,
+      onWillPop: _onBackPress,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.menu,
               ),
-              title: Text(
-                "Gift List",
-                style: GoogleFonts.bitter(),
-              ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    // do something
-                  },
-                )
-              ],
-              backgroundColor: kDarkPink,
+              onPressed: widget.onMenuPressed,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GridView.count(
+            title: Text(
+              "Gift List",
+              style: GoogleFonts.bitter(),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // do something
+                },
+              )
+            ],
+            backgroundColor: kDarkPink,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(uid)
+                  .collection('giftList')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var doc = snapshot.data.documents;
+                  List<Widget> cards = [];
+                  for (int i = 0; i < doc.length; i++) {
+                    cards.add(
+                      giftCard(
+                        giftName: doc[i]['itemName'],
+                        giftStatus: doc[i]['status'],
+                        imageUrl: doc[i]['imgURL'],
+                        Price: double.tryParse(doc[i]['price']),
+                        giftUrl: doc[i]['productURL'],
+                        details: doc[i]['description'],
+                      ),
+                    );
+                  }
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    semanticChildCount: 2,
+                    childAspectRatio: 0.6,
+                    children: cards,
+                  );
+                } else {
+                  return LinearProgressIndicator();
+                }
+              },
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            backgroundColor: kDarkPink,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+
+GridView.count(
                 crossAxisCount: 2,
                 mainAxisSpacing: 10,
                 semanticChildCount: 2,
                 childAspectRatio: 0.6,
                 children: <Widget>[
-                  Text("Avneesh Kumar $uid"),
+                  ],
+              ),
+
+
+Text("Avneesh Kumar $uid"),
                   giftCard(
                       giftName: "Phone",
                       giftStatus: false,
@@ -181,18 +237,5 @@ class _giftListScreenState extends State<giftListScreen> {
                     imageUrl:
                         "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                   ),
-                ],
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              backgroundColor: kDarkPink,
-            ),
-          ),
-        ));
-  }
-}
+                
+*/
