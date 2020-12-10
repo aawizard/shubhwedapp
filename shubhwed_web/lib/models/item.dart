@@ -3,7 +3,7 @@ class Item
 {
       String imagePath;
       String name;
-      double itemPrice;
+      String itemPrice;
       int quantity;
       bool status;
 
