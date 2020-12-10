@@ -53,7 +53,6 @@ class _homeScreenState extends State<homeScreen>
   @override
   void initState() {
     super.initState();
-//    fetchUserDetailsFromSharedPref();
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
@@ -81,6 +80,24 @@ class _homeScreenState extends State<homeScreen>
           ),
           onPressed: widget.onMenuPressed,
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              SharedPreferences.getInstance().then((value) {
+                value.clear();
+              });
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return onboardingScreen();
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         height: height,

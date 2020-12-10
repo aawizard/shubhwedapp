@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shubhwed/screens/onboarding_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
 //import '../Utils/shared_preference_helper.dart';
 //import '../model/user.dart';
@@ -31,7 +33,6 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
 ////      userLoad = user;
 ////    });
 ////  }
-
 
   @override
   void initState() {
@@ -70,7 +71,6 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-
               Container(
                 // height: 75,
                 decoration: BoxDecoration(
@@ -92,9 +92,12 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                 height: 6,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                child: Image.asset("assets/shubhwed.png",
-                width: MediaQuery.of(context).size.width/2,),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                child: Image.asset(
+                  "assets/shubhwed.png",
+                  width: MediaQuery.of(context).size.width / 2,
+                ),
               )
 //              Text(
 //                userLoad.name??'',
@@ -109,7 +112,6 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         ),
         decoration: BoxDecoration(
           color: Color(0xFFFBBABC).withOpacity(.75),
-
         ),
       ),
     );
