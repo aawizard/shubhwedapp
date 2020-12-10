@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shubhwed/screens/guestScreens/guestDetails.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class guestCard extends StatefulWidget {
   final String name;
   final bool invitationStatus;
@@ -11,14 +12,23 @@ class guestCard extends StatefulWidget {
   final String email;
   final String gift;
 
-  const guestCard({Key key, this.name, this.invitationStatus, this.imageURL, this.guestNumber, this.phoneNo, this.email, this.gift}) : super(key: key);
+  const guestCard(
+      {Key key,
+      this.name,
+      this.invitationStatus,
+      this.imageURL,
+      this.guestNumber,
+      this.phoneNo,
+      this.email,
+      this.gift})
+      : super(key: key);
 
   @override
-  _guestCardState createState() => _guestCardState(name,invitationStatus,imageURL,guestNumber,phoneNo,email,gift);
+  _guestCardState createState() => _guestCardState(
+      name, invitationStatus, imageURL, guestNumber, phoneNo, email, gift);
 }
 
 class _guestCardState extends State<guestCard> {
-
   final String name;
   final bool invitationStatus;
   final String imageURL;
@@ -27,7 +37,8 @@ class _guestCardState extends State<guestCard> {
   final String email;
   final String gift;
 
-  _guestCardState(this.name, this.invitationStatus, this.imageURL, this.guestNumber, this.phoneNo, this.email, this.gift);
+  _guestCardState(this.name, this.invitationStatus, this.imageURL,
+      this.guestNumber, this.phoneNo, this.email, this.gift);
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +47,12 @@ class _guestCardState extends State<guestCard> {
       child: Card(
         elevation: 2,
         child: ListTile(
-
-        leading: Container(
-
-
-          child: FadeInImage.assetNetwork(
-
-            image: imageURL,
-            placeholder: 'assets/shubhwed.png',
+          leading: Container(
+            child: FadeInImage.assetNetwork(
+              image: imageURL,
+              placeholder: 'assets/shubhwed.png',
+            ),
           ),
-        ),
-
           title: Text(
             name,
             textAlign: TextAlign.center,
@@ -72,7 +78,7 @@ class _guestCardState extends State<guestCard> {
                   imageUrl: imageURL,
                   phoneNo: phoneNo,
                   email: email,
-
+                  gift: gift,
                 );
               },
             ));
