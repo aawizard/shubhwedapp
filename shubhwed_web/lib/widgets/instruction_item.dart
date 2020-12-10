@@ -20,7 +20,7 @@ class InstructionItem extends StatelessWidget {
           children: [
             Icon(
               input,
-              color: Colors.blue,
+              color: Colors.pinkAccent,
               size: width * 0.11,
             ),
             Text(

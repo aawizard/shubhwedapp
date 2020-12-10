@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
    List<Item> items=List<Item>(3);
-   Item item=Item('assets/shubhwed.png', '1212', 12, 2, false); 
+   Item item=Item('assets/mobile.jpeg', 'One Plus 8', 'Rs 28,000', 1, false); 
+
   
   
   @override
@@ -170,19 +171,19 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InstructionItem(
-                    Icons.ac_unit,
+                    Icons.info,
                     "Buy or contribute ",
                     "Choose your gift. Buy it,or contribute any  amount of your choice towards it",
                     width,
                     height),
                 InstructionItem(
-                    Icons.ac_unit,
+                    Icons.info,
                     "Immediate notification",
                     'The couple is informed as soon as you get them a gift.Other guest will not know of your purchase',
                     width,
                     height),
                 InstructionItem(
-                    Icons.ac_unit,
+                    Icons.info,
                     "Direct Delivery",
                     "Gift and message is shipped directly to couple,unless you choose it to have it to sent to you ",
                     width,

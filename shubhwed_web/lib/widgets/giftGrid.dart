@@ -23,7 +23,7 @@ class GiftGrid extends StatelessWidget {
               color: Colors.red,
               child: Image.asset(
                 '${item.imagePath}',
-                fit: BoxFit.contain,
+                fit: BoxFit.fill,
               ),
             ),
             Padding(
@@ -39,7 +39,7 @@ class GiftGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: Text(
-                '${item.itemPrice.toString()}',
+                '${item.itemPrice}',
                 style: TextStyle(
                     fontSize: (10 / 720) * MediaQuery.of(context).size.width,
                     color: Colors.black,
@@ -62,7 +62,7 @@ class GiftGrid extends StatelessWidget {
                 'Recieved',
                 style: TextStyle(
                     fontSize: (10 / 720) * MediaQuery.of(context).size.width,
-                    color: Colors.black,
+                    color: Colors.green,
                     fontWeight: FontWeight.bold),
               ),
             ),
