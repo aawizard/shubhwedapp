@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
+import 'package:shubhwed/services/auth.dart';
 
 //TODO: Set these variables from firebase
 
@@ -19,9 +20,10 @@ class homeScreen extends DrawerContent {
 
 class _homeScreenState extends State<homeScreen>
     with SingleTickerProviderStateMixin {
-  String bride = "Amma Lorean";
-  String groom = "Mark Themson";
-  String date = "20,Aug 2021";
+  AuthService _auth=AuthService();
+  String bride ;
+  String groom;
+  String date ;
   FirebaseFirestore firestore;
   Animation animation;
   AnimationController controller;
@@ -83,7 +85,8 @@ class _homeScreenState extends State<homeScreen>
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () {
+            onPressed: () async{
+              await _auth.signOut();
               SharedPreferences.getInstance().then((value) {
                 value.clear();
               });

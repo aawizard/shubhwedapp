@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shubhwed/screens/home_screen.dart';
 import 'package:shubhwed/screens/signup_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shubhwed/screens/signup_screen.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
+import 'package:shubhwed/services/auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,6 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
   final InputDecoration decoration = new InputDecoration(
     focusedBorder: new OutlineInputBorder(
       borderSide: BorderSide(color: kPink),
@@ -33,134 +35,141 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 17,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      color: Colors.grey,
-                      onPressed: () {},
-                    ),
-                    Text(
-                      "Log In",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => signUpScreen()),
-                        );
-                      },
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(color: kPink),
-                      ),
-                    ),
-                  ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 17,
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 10,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 25),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: TextField(
-                  decoration: decoration.copyWith(
-                      hintText: "Email", labelText: "Email"),
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (value) {
-                    setState(() {
-                      email = value;
-                    });
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 25),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: TextField(
-                  obscureText: true,
-                  decoration: decoration.copyWith(
-                      hintText: "Password", labelText: "Password"),
-                  keyboardType: TextInputType.visiblePassword,
-                  onChanged: (value) {
-                    setState(() {
-                      password = value;
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(),
-                  child: RaisedButton(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    child: Text(
-                      "Log In",
-                      style: TextStyle(
-                        color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.grey,
+                        onPressed: () {},
                       ),
-                    ),
-                    onPressed: () async {
-                      if (email == null || password == null) {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text("Enter all details"),
-                        ));
-                      } else {
-                        try {
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .signInWithEmailAndPassword(
-                                  email: email, password: password);
-                          print(userCredential);
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) {
-                              return MainWidget();
-                            },
-                          ));
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("No user found for that email."),
-                            ));
-                          } else if (e.code == 'wrong-password') {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text("Wrong password provided.")));
-                          }
-                        } catch (e) {
-                          Scaffold.of(context).showSnackBar(
-                              SnackBar(content: Text("Some error occured.")));
-                        }
-                      }
-                    },
-                    color: kPink,
+                      Text(
+                        "Log In",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 13,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => signUpScreen()),
+                          );
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: kPink),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 10,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: TextFormField(
+                    decoration: decoration.copyWith(
+                        hintText: "Email", labelText: "Email"),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration: decoration.copyWith(
+                        hintText: "Password", labelText: "Password"),
+
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(),
+                    child: RaisedButton(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () async {
+                        if (email == null || password == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Enter all details"),
+                          ));
+                        } else {
+                          try {
+                            AuthService  auth = AuthService();
+                        auth.signInWithEmailAndPassword(email,password);
+//                          UserCredential userCredential = await FirebaseAuth
+//                              .instance
+//                              .signInWithEmailAndPassword(
+//                                  email: email, password: password);
+                            Navigator.pushReplacement(context, MaterialPageRoute(
+                              builder: (context) {
+                                return MainWidget();
+                              },
+                            ));
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("No user found for that email."),
+                              ));
+                            } else if (e.code == 'wrong-password') {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text("Wrong password provided.")));
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Some error occured.")));
+                          }
+                        }
+                      },
+                      color: kPink,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
