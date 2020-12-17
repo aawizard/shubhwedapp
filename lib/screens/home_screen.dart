@@ -9,18 +9,28 @@ import '../utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
 import 'package:shubhwed/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 //TODO: Set these variables from firebase
 
 class homeScreen extends DrawerContent {
   static const String id = 'home_screen';
+
+  final String uid;
+
+  homeScreen({this.uid});
+
+
   @override
-  _homeScreenState createState() => _homeScreenState();
+  _homeScreenState createState() => _homeScreenState(uid);
 }
 
 class _homeScreenState extends State<homeScreen>
     with SingleTickerProviderStateMixin {
+  final String uid;
   AuthService _auth=AuthService();
+
   String bride ;
   String groom;
   String date ;
@@ -29,7 +39,8 @@ class _homeScreenState extends State<homeScreen>
   AnimationController controller;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  getDataFromFirestore() {
+  _homeScreenState(this.uid);
+  getDataFromFirestore(String uid) {
     FirebaseFirestore.instance.collection('users').doc(uid).get().then((doc) {
       print("email: ${doc.get('email')}");
       setState(() {
@@ -41,16 +52,7 @@ class _homeScreenState extends State<homeScreen>
     });
   }
 
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  String uid;
-  getUID() {
-    prefs.then((value) {
-      setState(() {
-        uid = value.getString('uid');
-      });
-      getDataFromFirestore();
-    });
-  }
+
 
   @override
   void initState() {
@@ -64,11 +66,14 @@ class _homeScreenState extends State<homeScreen>
     controller.addListener(() {
       setState(() {});
     });
-    getUID();
+    getDataFromFirestore(uid);
   }
 
   @override
   Widget build(BuildContext context) {
+
+
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(

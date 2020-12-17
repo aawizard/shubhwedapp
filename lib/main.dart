@@ -46,8 +46,9 @@ class _MyAppState extends State<MyApp> {
     Firebase.initializeApp();
     return MultiProvider(
       providers: [
-        StreamProvider<users>.value(value: AuthService().user,
-//        FirebaseAuth.instance.authStateChanges()
+        StreamProvider<User>.value(value:
+//        AuthService().user,
+        FirebaseAuth.instance.authStateChanges(),
 ),
       ],
       child: MaterialApp(

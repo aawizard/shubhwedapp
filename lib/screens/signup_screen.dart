@@ -194,7 +194,9 @@ class _signUpScreenState extends State<signUpScreen> {
                                 builder: (context) {
                                   return RegistrationScreen(
                                       uid: result.uid.toString(),
-                                      email: result.email.toString());
+                                      email: result.email.toString(),
+                                  phoneNo: phoneNo,
+                                  name: name,);
                                 },
                               ),
                             );

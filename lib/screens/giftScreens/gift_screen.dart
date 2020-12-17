@@ -6,6 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shubhwed/components/giftCard.dart';
+import 'package:shubhwed/services/db.dart';
+import 'package:shubhwed/models/user.dart';
+import 'package:shubhwed/models/gift.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shubhwed/components/giftList.dart';
 
 class giftListScreen extends DrawerContent {
   @override
@@ -13,24 +19,27 @@ class giftListScreen extends DrawerContent {
 }
 
 class _giftListScreenState extends State<giftListScreen> {
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  String uid;
-  getUID() {
-    prefs.then((value) {
-      setState(() {
-        uid = value.getString('uid');
-      });
-    });
-  }
+  final auth =FirebaseAuth.instance;
+//  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+//  getUID() {
+//    prefs.then((value) {
+//      setState(() {
+//        uid = value.getString('uid');
+//      });
+//    });
+//  }
 
   @override
   void initState() {
     super.initState();
-    getUID();
+//    getUID();
   }
 
   @override
   Widget build(BuildContext context) {
+    var user=Provider.of<User>(context);
+    DatabaseService db =DatabaseService(user.uid);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -69,39 +78,13 @@ class _giftListScreenState extends State<giftListScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(uid)
-                  .collection('giftList')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var doc = snapshot.data.documents;
-                  List<Widget> cards = [];
-                  for (int i = 0; i < doc.length; i++) {
-                    cards.add(
-                      giftCard(
-                        giftName: doc[i]['itemName'],
-                        giftStatus: doc[i]['status'],
-                        imageUrl: doc[i]['imgURL'],
-                        Price: double.tryParse(doc[i]['price']),
-                        giftUrl: doc[i]['productURL'],
-                        details: doc[i]['description'],
-                      ),
-                    );
-                  }
-                  return GridView.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    semanticChildCount: 2,
-                    childAspectRatio: 0.6,
-                    children: cards,
-                  );
-                } else {
-                  return LinearProgressIndicator();
-                }
-              },
+            child: Column(
+              children: [
+                StreamProvider<List<Gift>>.value(
+                  value: db.streamgifts(),
+                  child: giftList(),
+                ),
+              ],
             ),
           ),
           floatingActionButton: FloatingActionButton(

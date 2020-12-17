@@ -7,11 +7,13 @@ import 'package:shubhwed/components/navigationDrawer.dart';
 
 
 class RegistrationScreen extends StatefulWidget {
-  RegistrationScreen({this.uid, this.email});
+  RegistrationScreen({this.uid, this.email, this.name, this.phoneNo});
   final String uid;
   final String email;
+  final String name;
+  final String phoneNo;
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState(name,phoneNo);
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
@@ -24,6 +26,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     labelText: "Name",
   );
   DateTime selectedDateTime;
+  final String name, phoneNo;
   String brideName,
       brideGroomname,
       venue,
@@ -35,12 +38,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       gPayNo,
       upiID;
 
+  _RegistrationScreenState(this.name, this.phoneNo);
+
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     Future<void> registerUser() {
       return users.doc("${widget.uid}").set({
+        'displayName': name??'',
+        'phoneNumber':phoneNo??'',
         'uid': widget.uid ?? '',
         'email': widget.email ?? '',
         'brideName': brideName ?? '',

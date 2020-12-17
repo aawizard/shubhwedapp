@@ -9,15 +9,14 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user=Provider.of<users>(context);
+    var user=Provider.of<User>(context);
 
     bool loggedIn= user !=null;
     print("user  : $user     " );
     if (user == null){
       return onboardingScreen();
     } else {
-      return MainWidget();
+      return MainWidget(uid: user.uid,);
     }
-//    return loggedIn?MainWidget():onboardingScreen();
   }
 }

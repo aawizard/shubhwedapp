@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shubhwed/utils/constants.dart';
+import 'package:shubhwed/models/gift.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 class giftCard extends StatefulWidget {
   final String imageUrl;
   final String giftName;
@@ -29,6 +32,9 @@ class _giftCardState extends State<giftCard> {
   _giftCardState(this.imageUrl, this.giftName, this.giftStatus, this.Price, this.giftUrl, this.details);
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User>(context);
+//    var gifts= Provider.of<List<Gift>>(context);
+//    print('                 $gifts');
     double width=MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
@@ -65,9 +71,10 @@ class _giftCardState extends State<giftCard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: FadeInImage.assetNetwork(
-                              image: imageUrl,
-                              placeholder: 'assets/shubhwed.png',
+                            child: Image(
+                              image: imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(imageUrl,
+                              ),
+
                             ),
                           ),
                           SizedBox(

@@ -6,49 +6,55 @@ import 'package:shubhwed/models/gift.dart';
 import 'package:shubhwed/models/guest.dart';
 
 class DatabaseService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+ final String uid;
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+
+  DatabaseService(this.uid);
 
   Future<users> getUsers(String id) async {
-    var snap = await _db.collection('users').doc(id).get();
+    var snap = await userCollection.doc(id).get();
 
     return users.fromMap(snap.data());
   }
 
   /// Get a stream of a single document
   Stream<users> streamUser(String id) {
-    return _db
-        .collection('users')
-        .doc(id)
+    return userCollection.doc(id)
         .snapshots()
         .map((snap) => users.fromMap(snap.data()) );
   }
 
-  /// Query a subcollection
-  Stream<List<gift>> streamgifts(User user) {
-    var ref = _db.collection('users').doc(user.uid).collection('giftList');
+  //Query a subcollection   giftList
+  Stream<List<Gift>> streamgifts() {
+    var ref = userCollection.doc(uid).collection('giftList');
 
     return ref.snapshots().map((list) =>
-        list.docs.map((doc) => gift.fromFirestore(doc)).toList());
+        list.docs.map((doc) => Gift.fromFirestore(doc)).toList());
   }
 
+  Stream<List<guest>> streamguest() {
+    var ref = userCollection.doc(uid).collection('guestList');
+
+    return ref.snapshots().map((list) =>
+        list.docs.map((doc) => guest.fromFirestore(doc)).toList());
+  }
+
+
   Future<void> addUser(User user) {
-    return _db
-        .collection('users')
+    return userCollection
         .doc(user.uid)
         .set({'name': 'DogMan ${user.uid.substring(0,5)}'});
   }
 
   Future<void> addgift(User user, dynamic gift) {
-    return _db
-        .collection('users')
+    return userCollection
         .doc(user.uid)
         .collection('giftList')
         .add(gift);
   }
 
   Future<void> removegift(User user, String id) {
-    return _db
-        .collection('users')
+    return userCollection
         .doc(user.uid)
         .collection('giftList')
         .doc(id)

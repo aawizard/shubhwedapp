@@ -18,11 +18,14 @@ class MainWidget extends StatefulWidget {
   final String uid;
 
   @override
-  _MainWidgetState createState() => _MainWidgetState();
+  _MainWidgetState createState() => _MainWidgetState(uid);
 }
 
 class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
+  final String uid;
   HiddenDrawerController _drawerController;
+
+  _MainWidgetState(this.uid);
 //  User userLoad = new User();
 ////  Future fetchUserDetailsFromSharedPref() async {
 ////    var result =
@@ -39,12 +42,12 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
     super.initState();
 //    fetchUserDetailsFromSharedPref();
     _drawerController = HiddenDrawerController(
-      initialPage: homeScreen(),
+      initialPage: homeScreen(uid: uid,),
       items: [
         DrawerItem(
           text: 'Home',
           icon: Icons.home,
-          page: homeScreen(),
+          page: homeScreen(uid: uid,),
         ),
         DrawerItem(
           text: 'GuestList',
