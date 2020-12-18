@@ -31,33 +31,52 @@ class DatabaseService {
     return ref.snapshots().map((list) =>
         list.docs.map((doc) => Gift.fromFirestore(doc)).toList());
   }
-
-  Stream<List<guest>> streamguest() {
+//Query a subcollection   giftList
+  Stream<List<Guest>> streamguest() {
     var ref = userCollection.doc(uid).collection('guestList');
 
     return ref.snapshots().map((list) =>
-        list.docs.map((doc) => guest.fromFirestore(doc)).toList());
+        list.docs.map((doc) => Guest.fromFirestore(doc)).toList());
   }
 
 
-  Future<void> addUser(User user) {
+  Future<void> addUser(dynamic user) {
     return userCollection
         .doc(user.uid)
-        .set({'name': 'DogMan ${user.uid.substring(0,5)}'});
+        .set(user);
   }
 
-  Future<void> addgift(User user, dynamic gift) {
+  Future<void> addgift( dynamic gift) {
     return userCollection
-        .doc(user.uid)
+        .doc(uid)
         .collection('giftList')
         .add(gift);
   }
 
-  Future<void> removegift(User user, String id) {
+  Future<void> addguest( dynamic guest) {
     return userCollection
-        .doc(user.uid)
+        .doc(uid)
+        .collection('guestList')
+        .add(guest);
+  }
+
+
+  Future<void> removegift( String id) {
+    return userCollection
+        .doc(uid)
         .collection('giftList')
         .doc(id)
         .delete();
   }
+
+  Future<void> removeguest( String id) {
+    print('$uid      $id');
+    return userCollection
+        .doc(uid)
+        .collection('guestList')
+        .doc(id)
+        .delete();
+  }
+
 }
+

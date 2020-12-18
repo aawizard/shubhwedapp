@@ -4,7 +4,9 @@ import 'package:shubhwed/screens/home_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
-
+import 'package:provider/provider.dart';
+import 'package:shubhwed/services/db.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   RegistrationScreen({this.uid, this.email, this.name, this.phoneNo});
@@ -17,14 +19,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final InputDecoration decoration = new InputDecoration(
-    focusedBorder: new OutlineInputBorder(
-      borderSide: BorderSide(color: kPink),
-    ),
-    labelStyle: TextStyle(color: Colors.black),
-    hintText: "Name",
-    labelText: "Name",
-  );
+
   DateTime selectedDateTime;
   final String name, phoneNo;
   String brideName,
@@ -43,9 +38,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    var user=Provider.of<User>(context);
+    DatabaseService _db =DatabaseService(user.uid);
     Future<void> registerUser() {
-      return users.doc("${widget.uid}").set({
+      return _db.addUser({
         'displayName': name??'',
         'phoneNumber':phoneNo??'',
         'uid': widget.uid ?? '',
@@ -82,13 +78,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Bride's Name", labelText: "Bride's Name"),
@@ -100,8 +98,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Bridegroom's Name",
@@ -114,8 +113,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Venue", labelText: "Venue"),
@@ -147,8 +147,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Delivery Address",
@@ -161,8 +162,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Bank Account Number",
@@ -176,8 +178,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "IFSC Code", labelText: "IFSC Code"),
@@ -189,8 +192,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "Bank Holder's Name",
@@ -203,8 +207,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "PayTM Number", labelText: "PayTM Number"),
@@ -216,8 +221,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "GPay Number", labelText: "GPay Number"),
@@ -229,8 +235,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(
                         hintText: "UPI ID", labelText: "UPI ID"),

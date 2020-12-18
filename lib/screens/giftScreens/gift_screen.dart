@@ -12,6 +12,7 @@ import 'package:shubhwed/models/gift.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shubhwed/components/giftList.dart';
+import 'addGift.dart';
 
 class giftListScreen extends DrawerContent {
   @override
@@ -20,16 +21,6 @@ class giftListScreen extends DrawerContent {
 
 class _giftListScreenState extends State<giftListScreen> {
   final auth =FirebaseAuth.instance;
-//  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-
-//  getUID() {
-//    prefs.then((value) {
-//      setState(() {
-//        uid = value.getString('uid');
-//      });
-//    });
-//  }
-
   @override
   void initState() {
     super.initState();
@@ -76,19 +67,28 @@ class _giftListScreenState extends State<giftListScreen> {
             ],
             backgroundColor: kDarkPink,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                StreamProvider<List<Gift>>.value(
-                  value: db.streamgifts(),
-                  child: giftList(),
-                ),
-              ],
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+
+                children: [
+                  StreamProvider<List<Gift>>.value(
+                    value: db.streamgifts(),
+                    child: giftList(),
+                  ),
+                ],
+              ),
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return addGift();
+                },
+              ));
+            },
             child: Icon(
               Icons.add,
               color: Colors.white,
@@ -101,124 +101,4 @@ class _giftListScreenState extends State<giftListScreen> {
   }
 }
 
-/*
 
-GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                semanticChildCount: 2,
-                childAspectRatio: 0.6,
-                children: <Widget>[
-                  ],
-              ),
-
-
-Text("Avneesh Kumar $uid"),
-                  giftCard(
-                      giftName: "Phone",
-                      giftStatus: false,
-                      Price: 2000,
-                      giftUrl: "https://www.google.co.in/",
-                      details: "helolo",
-                      imageUrl: ""),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                  giftCard(
-                    giftName: "Phone",
-                    giftStatus: false,
-                    Price: 2000,
-                    giftUrl: "https://www.google.co.in/",
-                    details: "helolo",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  ),
-                
-*/

@@ -16,14 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
-  final InputDecoration decoration = new InputDecoration(
-    focusedBorder: new OutlineInputBorder(
-      borderSide: BorderSide(color: kPink),
-    ),
-    labelStyle: TextStyle(color: Colors.black),
-    hintText: "Name",
-    labelText: "Name",
-  );
+
   String email, password;
   @override
   void initState() {

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
    final String imageUrl;
    final String giftName;
    final bool giftStatus;
-   final double Price;
+   final int Price;
    final String giftUrl;
    final String details;
 
@@ -13,12 +13,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
      Map data = doc.data();
      return Gift(
        id: doc.id,
-       imageUrl: data['imageURL']??'',
+       imageUrl: data['imgURL']??'',
        giftName: data['itemName']??'',
-       giftStatus: data['giftStatus']??false,
-       giftUrl: data['giftUrl']??'',
+       giftStatus: data['status']??false,
+       giftUrl: data['productUrl']??'',
        details: data['description']??'',
-       Price: data['Price']??0,
+       Price: data['price']??0,
      );
    }
  }

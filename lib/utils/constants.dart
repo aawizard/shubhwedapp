@@ -9,3 +9,12 @@ List<Color> kBgGradient = [
   kDarkPink,
   kSkin,
 ];
+
+final InputDecoration decoration = new InputDecoration(
+  focusedBorder: new OutlineInputBorder(
+    borderSide: BorderSide(color: kPink),
+  ),
+  labelStyle: TextStyle(color: Colors.black),
+  hintText: "Name",
+  labelText: "Name",
+);

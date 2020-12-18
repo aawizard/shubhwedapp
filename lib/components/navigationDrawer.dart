@@ -10,7 +10,7 @@ import '../screens/home_screen.dart';
 import 'drawer.dart';
 import 'package:shubhwed/screens/giftScreens/gift_screen.dart';
 import 'package:shubhwed/screens/home_screen.dart';
-import 'package:shubhwed/screens/guestScreens/guest_list.dart';
+import 'package:shubhwed/screens/guestScreens/guest_screen.dart';
 
 class MainWidget extends StatefulWidget {
   MainWidget({Key key, this.title, this.uid}) : super(key: key);

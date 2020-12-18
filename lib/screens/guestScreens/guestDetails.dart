@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:shubhwed/screens/onboarding_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shubhwed/services/db.dart';
 class guestDetails extends StatefulWidget {
   final String name;
   final String imageUrl;
   final String email;
   final String phoneNo;
   final String gift;
+  final String id;
 
   const guestDetails(
-      {Key key, this.name, this.imageUrl, this.email, this.phoneNo, this.gift})
+      {Key key, this.name, this.imageUrl, this.email, this.phoneNo, this.gift, this.id})
       : super(key: key);
   @override
   _guestDetailsState createState() =>
-      _guestDetailsState(name, imageUrl, email, phoneNo, gift);
+      _guestDetailsState(name, imageUrl, email, phoneNo, gift,id);
 }
 
 class _guestDetailsState extends State<guestDetails> {
@@ -24,9 +27,10 @@ class _guestDetailsState extends State<guestDetails> {
   final String email;
   final String phoneNo;
   final String gift;
+  final String id;
 
   _guestDetailsState(
-      this.name, this.imageUrl, this.email, this.phoneNo, this.gift);
+      this.name, this.imageUrl, this.email, this.phoneNo, this.gift, this.id);
   void handleClick(String value) {
     switch (value) {
       case 'Send SMS':
@@ -41,6 +45,18 @@ class _guestDetailsState extends State<guestDetails> {
   String giftRecieved;
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User>(context);
+    DatabaseService _db= DatabaseService(user.uid);
+    Future<void> delete() {
+
+
+      return _db.removeguest(id).then((value) async {
+
+        Navigator.pop(context);
+      }).catchError(
+            (error) => print("Some error occured while registering"),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kDarkPink,
@@ -51,12 +67,10 @@ class _guestDetailsState extends State<guestDetails> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.check,
+              Icons.delete,
               color: Colors.white,
             ),
-            onPressed: () {
-              // do something
-            },
+            onPressed: delete,
           ),
           PopupMenuButton<String>(
             onSelected: handleClick,

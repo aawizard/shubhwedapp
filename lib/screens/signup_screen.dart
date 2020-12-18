@@ -17,14 +17,7 @@ class _signUpScreenState extends State<signUpScreen> {
   bool loading = false;
 
 
-  final InputDecoration decoration = new InputDecoration(
-    focusedBorder: new OutlineInputBorder(
-      borderSide: BorderSide(color: kPink),
-    ),
-    labelStyle: TextStyle(color: Colors.black),
-    hintText: "Name",
-    labelText: "Name",
-  );
+
   String name, phoneNo, email, password;
 
   @override

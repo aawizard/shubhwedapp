@@ -40,13 +40,11 @@ class _homeScreenState extends State<homeScreen>
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   _homeScreenState(this.uid);
-  getDataFromFirestore(String uid) {
+  Future<void> getDataFromFirestore(String uid) {
     FirebaseFirestore.instance.collection('users').doc(uid).get().then((doc) {
-      print("email: ${doc.get('email')}");
       setState(() {
         bride = doc.get('brideName');
         groom = doc.get('brideGroomName');
-        print("date: ${doc.get('date')}");
         date = doc.get('date').toString().split(" ")[0];
       });
     });
