@@ -38,13 +38,16 @@ class ContentPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             CarouselSlider(
-              autoPlay: false,
-              enableInfiniteScroll: false,
-              initialPage: 0,
-              reverse: false,
-              viewportFraction: 1.0,
-              aspectRatio: MediaQuery.of(context).size.aspectRatio,
-              height: MediaQuery.of(context).size.height - 30,
+              options: CarouselOptions(
+                autoPlay: false,
+                enableInfiniteScroll: false,
+                initialPage: 0,
+                reverse: false,
+                viewportFraction: 1.0,
+                aspectRatio: MediaQuery.of(context).size.aspectRatio,
+                height: MediaQuery.of(context).size.height - 30,
+              ),
+
               items: [0, 1, 2].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
