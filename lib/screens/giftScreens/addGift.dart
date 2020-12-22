@@ -28,7 +28,7 @@ class _addGiftState extends State<addGift> {
     DatabaseService _db =DatabaseService(user.uid);
     Future<void> add() {
 
-       print('  dfghj  $giftName');
+      print('  dfghj  $giftName');
       return _db.addgift({
         'itemName':giftName,
         'description':details,
@@ -56,7 +56,7 @@ class _addGiftState extends State<addGift> {
           },
         ),
         title: Text(
-          "Gift List",
+          "Add Gift",
           style: GoogleFonts.bitter(),
         ),
       ),
@@ -91,13 +91,13 @@ class _addGiftState extends State<addGift> {
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextFormField(
                     decoration: decoration.copyWith(labelText: 'Enter Gift Price in Rs',hintText: '400'),
-                      keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.number,
                     validator: (val) => val.isEmpty ? 'Enter Gift Price' : null,
 
                     onChanged: (value) {
                       setState(() {
 
-                       Price = int.parse(value);
+                        Price = int.parse(value);
                       });
                     },
                   ),
@@ -143,7 +143,7 @@ class _addGiftState extends State<addGift> {
 
                     onChanged: (value) {
                       setState(() {
-                       imageUrl = value.isEmpty?'':value;
+                        imageUrl = value.isEmpty?'':value;
                       });
                     },
                   ),
@@ -159,10 +159,10 @@ class _addGiftState extends State<addGift> {
                     onPressed:(){
 
                       if( _formKey.currentState.validate()){
-                       print(giftName);
-                      add();
+                        print(giftName);
+                        add();
                       }
-                      },
+                    },
 
 
                     elevation: 5,

@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
 import 'package:shubhwed/services/auth.dart';
 import 'wrapper.dart';
-import 'screens/onboarding_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'services/auth.dart';
-import 'models/user.dart';
 void main() {
   runApp(MyApp());
 }
@@ -19,19 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  bool loginState = false;
-  getLoginState() {
-    prefs.then((value) {
-      if(value.getString('uid').isNotEmpty){
-        setState(() {
-          loginState = true;
-        });
-      }
-    });
-    return true;
-  }
-
   @override
   void initState() {
     super.initState();

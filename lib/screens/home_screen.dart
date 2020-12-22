@@ -41,7 +41,7 @@ class _homeScreenState extends State<homeScreen>
 
   _homeScreenState(this.uid);
   Future<void> getDataFromFirestore(String uid) {
-    FirebaseFirestore.instance.collection('users').doc(uid).get().then((doc) {
+    users.doc(uid).get().then((doc) {
       setState(() {
         bride = doc.get('brideName');
         groom = doc.get('brideGroomName');
@@ -69,9 +69,6 @@ class _homeScreenState extends State<homeScreen>
 
   @override
   Widget build(BuildContext context) {
-
-
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(

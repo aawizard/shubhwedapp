@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shubhwed/screens/onboarding_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
@@ -5,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shubhwed/services/db.dart';
+import 'package:url_launcher/url_launcher.dart';
 class guestDetails extends StatefulWidget {
   final String name;
   final String imageUrl;
@@ -28,16 +30,55 @@ class _guestDetailsState extends State<guestDetails> {
   final String phoneNo;
   final String gift;
   final String id;
+  String msg='hello';
 
+  sendwhatsapp() async{
+var  uri="https://wa.me/+91${phoneNo}?text=$msg";
+  if (await canLaunch(uri)) {
+    await launch(uri);
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Could not send whatsapp message")));
+  }
+}
+sendEmail() async{
+if(email!='' || email.isNotEmpty) {
+  var uri= Uri(
+      scheme: 'mailto',
+      path: email,
+      queryParameters: {
+        'subject': 'Wedding Invitation',
+        'body': msg,
+      }
+
+  ).toString();
+  if (await canLaunch(uri)) {
+    await launch(uri);
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Could not send email")));
+  }
+}
+}
+
+Future<void> sendSms() async{
+    var uri='sms:$phoneNo?$msg';
+    if (await canLaunch(uri)) {
+      await launch(uri);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Could not send sms")));
+    }
+}
   _guestDetailsState(
       this.name, this.imageUrl, this.email, this.phoneNo, this.gift, this.id);
   void handleClick(String value) {
     switch (value) {
-      case 'Send SMS':
+      case 'Send SMS':sendSms();
         break;
-      case 'Send Email':
+      case 'Send Email':sendEmail();
         break;
-      case 'Send WhatsApp':
+      case 'Send WhatsApp':sendwhatsapp();
         break;
     }
   }
@@ -61,7 +102,7 @@ class _guestDetailsState extends State<guestDetails> {
       appBar: AppBar(
         backgroundColor: kDarkPink,
         title: Text(
-          "Guest List",
+          "Your Guest",
           style: GoogleFonts.bitter(),
         ),
         actions: <Widget>[
@@ -141,14 +182,7 @@ class _guestDetailsState extends State<guestDetails> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.delete,
-          color: Colors.white,
-        ),
-        backgroundColor: kDarkPink,
-        onPressed: () {},
-      ),
+
     );
   }
 }

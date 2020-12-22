@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:shubhwed/models/user.dart';
 import 'package:shubhwed/models/gift.dart';
@@ -10,6 +10,7 @@ class DatabaseService {
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
   DatabaseService(this.uid);
+
 
   Future<users> getUsers(String id) async {
     var snap = await userCollection.doc(id).get();
@@ -40,10 +41,25 @@ class DatabaseService {
   }
 
 
-  Future<void> addUser(dynamic user) {
+  Future<void> addUser({String name,String phoneNo,String uid,String email,String brideName,String brideGroomname,String venue,String deliveryAddr,
+  String bankACNo,String ifscCode,String acHoldername,String payTmNo,String gPayNo, String upiID , var selectedDateTime }) {
     return userCollection
-        .doc(user.uid)
-        .set(user);
+        .doc(uid)
+        .set( {'displayName': name??'',
+        'phoneNumber':phoneNo??'',
+        'uid': uid ?? '',
+        'email': email ?? '',
+        'brideName': brideName ?? '',
+        'brideGroomName': brideGroomname ?? '',
+        'venue': venue ?? '',
+        'deliveryAddress': deliveryAddr ?? '',
+        'bankAccountNumber': bankACNo ?? '',
+        'ifscCode': ifscCode ?? '',
+        'accountHolderName': acHoldername ?? '',
+        'payTmNumber': payTmNo ?? '',
+        'gPayNumber': gPayNo ?? '',
+        'upiID': upiID ?? '',
+        'date': selectedDateTime.toString().split(" ")[0] ?? ''});
   }
 
   Future<void> addgift( dynamic gift) {

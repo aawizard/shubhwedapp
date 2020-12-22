@@ -54,17 +54,7 @@ class _giftListScreenState extends State<giftListScreen> {
               "Gift List",
               style: GoogleFonts.bitter(),
             ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // do something
-                },
-              )
-            ],
+
             backgroundColor: kDarkPink,
           ),
           body: SingleChildScrollView(

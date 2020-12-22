@@ -56,7 +56,7 @@ class _addGuestState extends State<addGuest> {
           },
         ),
         title: Text(
-          "Gift List",
+          "Add Guest",
           style: GoogleFonts.bitter(),
         ),
       ),

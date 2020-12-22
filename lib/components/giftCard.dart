@@ -7,27 +7,19 @@ class giftCard extends StatefulWidget {
   final String imageUrl;
   final String giftName;
   final bool giftStatus;
-  final double Price;
+  final int Price;
   final String giftUrl;
   final String details;
-
+  final String id;
   const giftCard(
       {Key key,
-      this.imageUrl,@required this.giftName,@required this.giftStatus, this.Price, this.giftUrl, this.details})
+      this.imageUrl,@required this.giftName,@required this.giftStatus, this.Price, this.giftUrl, this.details, this.id})
       : super(key: key);
   @override
-  _giftCardState createState() => _giftCardState( imageUrl,giftName,giftStatus,Price,giftUrl,details);
+  _giftCardState createState() => _giftCardState( );
 }
 
 class _giftCardState extends State<giftCard> {
-
-  final String imageUrl;
-  final String giftName;
-  final bool giftStatus;
-  final double Price;
-  final String giftUrl;
-  final String details;
-  _giftCardState(this.imageUrl, this.giftName, this.giftStatus, this.Price, this.giftUrl, this.details);
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User>(context);
@@ -59,7 +51,7 @@ class _giftCardState extends State<giftCard> {
                       child: Column(
                         children: [
                           Text(
-                            giftName,
+                           widget.giftName,
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -70,7 +62,7 @@ class _giftCardState extends State<giftCard> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Image(
-                              image: imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(imageUrl,
+                              image:widget.imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(widget.imageUrl,
                               ),
 
                             ),
@@ -79,7 +71,7 @@ class _giftCardState extends State<giftCard> {
                             height: 20,
                           ),
                           Text(
-                            details,
+                            widget.details,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -89,7 +81,7 @@ class _giftCardState extends State<giftCard> {
                             height: 15,
                           ),
                           Text(
-                            "Price : Rs. $Price",
+                            "Price : Rs. ${widget.Price}",
                             maxLines: 1,
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -114,7 +106,7 @@ class _giftCardState extends State<giftCard> {
                                     decoration: TextDecoration.none),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    launch(giftUrl);
+                                    launch(widget.giftUrl);
                                   },
                               ),
                             ),
@@ -144,7 +136,7 @@ class _giftCardState extends State<giftCard> {
                     width:width/2 -34 ,
                     height: width/2 -34,
                     child: Image(
-                      image: imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(imageUrl,
+                      image: widget.imageUrl==""?AssetImage("assets/shubhwed.png"):NetworkImage(widget.imageUrl,
                       ),
 
                     ),
@@ -152,7 +144,7 @@ class _giftCardState extends State<giftCard> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        giftName,
+                        widget.giftName,
                         maxLines: 2,
                         style: TextStyle(fontSize: 25,
                             fontWeight: FontWeight.w600),
@@ -160,7 +152,7 @@ class _giftCardState extends State<giftCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child:giftStatus==true? Text("Recieved",style: TextStyle(color: Colors.green),
+                      child:widget.giftStatus==true? Text("Recieved",style: TextStyle(color: Colors.green),
                       ):Text("Not Recieved", style: TextStyle(color: Colors.red),),
                     )
                   ],

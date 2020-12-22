@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shubhwed/screens/registration_screen.dart';
+import 'package:shubhwed/screens/registrationscreen.dart';
 import 'package:shubhwed/utils/constants.dart';
 import 'login_screen.dart';
 import 'package:shubhwed/services/auth.dart';
@@ -23,10 +23,6 @@ class _signUpScreenState extends State<signUpScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void verifyInputs() {
-    String warning = "";
   }
 
   @override

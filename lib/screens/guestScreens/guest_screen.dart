@@ -48,46 +48,6 @@ class _guestListScreenState extends State<guestListScreen> {
               value: db.streamguest(),
               child: guestList(),
             ),
-//            Column(
-//              children: [
-//                guestCard(
-//                  name: "Aman V",
-//                  invitationStatus: true,
-//                  gift: "Phone",
-//                  email: "aman.2022@gmail.com",
-//                  guestNumber: 4,
-//                  imageURL:
-//                      "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-//                ),
-//                guestCard(
-//                  name: "Karan Singh",
-//                  invitationStatus: true,
-//                  gift: "Washing Machine",
-//                  email: "Karansingh123@gmail.com",
-//                  guestNumber: 1,
-//                  imageURL:
-//                      "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-//                ),
-//                guestCard(
-//                  name: "Akhil D'Souza",
-//                  invitationStatus: true,
-//                  gift: "Dinning Table",
-//                  email: "dakhildsouza@gmail.com",
-//                  guestNumber: 5,
-//                  imageURL:
-//                      "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-//                ),
-//                guestCard(
-//                  name: "Sushila Ben",
-//                  invitationStatus: false,
-//                  gift: "Water Purifier",
-//                  email: "shushila@gmail.com",
-//                  guestNumber: 2,
-//                  imageURL:
-//                      "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGhvdG98ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-//                ),
-//              ],
-//            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {

@@ -125,14 +125,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        if (email == null || password == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Enter all details"),
-                          ));
-                        } else {
+                        if (_formKey.currentState.validate()) {
+
                           try {
                             AuthService  auth = AuthService();
-                        auth.signInWithEmailAndPassword(email,password);
+                            auth.signInWithEmailAndPassword(email,password);
 //                          UserCredential userCredential = await FirebaseAuth
 //                              .instance
 //                              .signInWithEmailAndPassword(
@@ -155,7 +152,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Some error occured.")));
                           }
-                        }
+
+
+
+
+
+
+
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Enter all details"),
+                          ));
+                         }
                       },
                       color: kPink,
                     ),
