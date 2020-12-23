@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shubhwed/screens/onboarding_screen.dart';
 import 'package:shubhwed/utils/constants.dart';
-//import '../Utils/shared_preference_helper.dart';
-//import '../model/user.dart';
+import 'package:shubhwed/screens/profile/profile.dart';
 import '../screens/home_screen.dart';
 import 'drawer.dart';
 import 'package:shubhwed/screens/giftScreens/gift_screen.dart';
 import 'package:shubhwed/screens/home_screen.dart';
 import 'package:shubhwed/screens/guestScreens/guest_screen.dart';
+import 'package:shubhwed/services/db.dart';
+import 'package:shubhwed/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MainWidget extends StatefulWidget {
   MainWidget({Key key, this.title, this.uid}) : super(key: key);
@@ -59,49 +60,59 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
           icon: Icons.card_giftcard,
           page: giftListScreen(),
         ),
+        DrawerItem(
+          text: 'Profile',
+          icon: Icons.person,
+          page: Profile(),
+        ),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    var user=Provider.of<User>(context);
+    DatabaseService _db=DatabaseService(user.uid);
+    StreamProvider<users>.value(value: _db.streamUser());
     return Scaffold(
-      body: HiddenDrawer(
-        controller: _drawerController,
-        header: Align(
-          alignment: Alignment.centerLeft,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                // height: 75,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: kSkin, width: 2)),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: ClipOval(
-                  child: Image(
-                    fit: BoxFit.contain,
-                    image: AssetImage("assets/couple-icon.png"),
+      body: StreamProvider<users>.value(
+        value: _db.streamUser(),
+        child: HiddenDrawer(
+          controller: _drawerController,
+          header: Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  // height: 75,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: kSkin, width: 2)),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: ClipOval(
+                    child: Image(
+                      fit: BoxFit.contain,
+                      image: AssetImage("assets/couple-icon.png"),
 //                    NetworkImage(
 //                      userLoad.imageURL??'',
 //                    ),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 6,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                child: Image.asset(
-                  "assets/shubhwed.png",
-                  width: MediaQuery.of(context).size.width / 2,
+                SizedBox(
+                  height: 6,
                 ),
-              )
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  child: Image.asset(
+                    "assets/shubhwed.png",
+                    width: MediaQuery.of(context).size.width / 2,
+                  ),
+                )
 //              Text(
 //                userLoad.name??'',
 //                style: TextStyle(color: Colors.black, fontSize: 20),
@@ -110,11 +121,12 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
 //                  userLoad.email??'',
 //                  style: TextStyle(color: Colors.black,fontSize: 12)
 //              )
-            ],
+              ],
+            ),
           ),
-        ),
-        decoration: BoxDecoration(
-          color: Color(0xFFFBBABC).withOpacity(.75),
+          decoration: BoxDecoration(
+            color: Color(0xFFFBBABC).withOpacity(.75),
+          ),
         ),
       ),
     );

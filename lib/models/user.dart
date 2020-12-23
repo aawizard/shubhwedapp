@@ -39,7 +39,7 @@ factory users.fromMap( Map data){
       upiID: data['upiID'] ?? '',
       venue: data['venue'] ?? '',
       phoneNumber: data['phoneNumber']??'',
-    name: data['name']??''
+    name: data['displayName']??''
 
   );
 }

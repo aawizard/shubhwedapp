@@ -5,15 +5,12 @@ import 'package:shubhwed/components/drawer.dart';
 import 'package:shubhwed/utils/constants.dart';
 import '../utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
 import 'package:shubhwed/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-
-//TODO: Set these variables from firebase
-
+import 'package:shubhwed/services/db.dart';
+import 'package:shubhwed/models/user.dart';
 class homeScreen extends DrawerContent {
   static const String id = 'home_screen';
 
@@ -31,24 +28,24 @@ class _homeScreenState extends State<homeScreen>
   final String uid;
   AuthService _auth=AuthService();
 
-  String bride ;
-  String groom;
-  String date ;
+//  String bride ;
+//  String groom;
+//  String date ;
   FirebaseFirestore firestore;
   Animation animation;
   AnimationController controller;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+//  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   _homeScreenState(this.uid);
-  Future<void> getDataFromFirestore(String uid) {
-    users.doc(uid).get().then((doc) {
-      setState(() {
-        bride = doc.get('brideName');
-        groom = doc.get('brideGroomName');
-        date = doc.get('date').toString().split(" ")[0];
-      });
-    });
-  }
+//  Future<void> getDataFromFirestore(String uid) {
+//    users.doc(uid).get().then((doc) {
+//      setState(() {
+//        bride = doc.get('brideName');
+//        groom = doc.get('brideGroomName');
+//        date = doc.get('date').toString().split(" ")[0];
+//      });
+//    });
+//  }
 
 
 
@@ -64,11 +61,14 @@ class _homeScreenState extends State<homeScreen>
     controller.addListener(() {
       setState(() {});
     });
-    getDataFromFirestore(uid);
+//    getDataFromFirestore(uid);
   }
 
   @override
   Widget build(BuildContext context) {
+    DatabaseService _db=DatabaseService(widget.uid);
+
+    var user= Provider.of<users>(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -159,7 +159,7 @@ class _homeScreenState extends State<homeScreen>
                   ),
                 ),
                 Text(
-                  "$bride & $groom",
+                  "${user.brideName} & ${user.brideGroomName}",
                   style: GoogleFonts.charm(
                       color: Color(0xffF9190A),
                       fontSize: width / 20,
@@ -168,7 +168,7 @@ class _homeScreenState extends State<homeScreen>
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: homePageText(
-                    text: "$date",
+                    text: user.date,
                   ),
                 ),
               ],

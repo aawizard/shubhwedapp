@@ -12,15 +12,15 @@ class DatabaseService {
   DatabaseService(this.uid);
 
 
-  Future<users> getUsers(String id) async {
-    var snap = await userCollection.doc(id).get();
+  Future<users> getUsers() async {
+    var snap = await userCollection.doc(uid).get();
 
     return users.fromMap(snap.data());
   }
 
   /// Get a stream of a single document
-  Stream<users> streamUser(String id) {
-    return userCollection.doc(id)
+  Stream<users> streamUser() {
+    return userCollection.doc(uid)
         .snapshots()
         .map((snap) => users.fromMap(snap.data()) );
   }
@@ -59,8 +59,10 @@ class DatabaseService {
         'payTmNumber': payTmNo ?? '',
         'gPayNumber': gPayNo ?? '',
         'upiID': upiID ?? '',
-        'date': selectedDateTime.toString().split(" ")[0] ?? ''});
+        'date': selectedDateTime});
   }
+
+
 
   Future<void> addgift( dynamic gift) {
     return userCollection

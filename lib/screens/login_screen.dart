@@ -97,9 +97,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: true,
                     decoration: decoration.copyWith(
                         hintText: "Password", labelText: "Password"),
-
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ chars long'
+                        : null,
                     onChanged: (value) {
                       setState(() {
                         password = value;
@@ -117,7 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                       child: Text(
                         "Log In",
                         style: TextStyle(
@@ -126,44 +128,40 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-
                           try {
-                            AuthService  auth = AuthService();
-                            auth.signInWithEmailAndPassword(email,password);
+                            AuthService auth = AuthService();
+                            auth.signInWithEmailAndPassword(email, password);
 //                          UserCredential userCredential = await FirebaseAuth
 //                              .instance
 //                              .signInWithEmailAndPassword(
 //                                  email: email, password: password);
-                            Navigator.pushReplacement(context, MaterialPageRoute(
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(
                               builder: (context) {
                                 return MainWidget();
                               },
                             ));
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text("No user found for that email."),
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                   content: Text("No user found for that email."),
                               ));
                             } else if (e.code == 'wrong-password') {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text("Wrong password provided.")));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text("Wrong password provided.")));
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Some error occured.")));
                           }
-
-
-
-
-
-
-
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Enter all details"),
                           ));
-                         }
+                        }
                       },
                       color: kPink,
                     ),
