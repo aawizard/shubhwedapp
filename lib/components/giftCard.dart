@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shubhwed/services/db.dart';
+import 'package:shubhwed/screens/giftScreens/gift_screen.dart';
 class giftCard extends StatefulWidget {
   final String imageUrl;
   final String giftName;
@@ -23,8 +25,7 @@ class _giftCardState extends State<giftCard> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User>(context);
-//    var gifts= Provider.of<List<Gift>>(context);
-//    print('                 $gifts');
+    DatabaseService _db=DatabaseService(user.uid);
     double width=MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
@@ -111,6 +112,22 @@ class _giftCardState extends State<giftCard> {
                               ),
                             ),
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(width: width/3,),
+                              FlatButton(
+                                child: Icon(
+                                    Icons.delete,
+
+                                ),
+                                onPressed: (){
+                                  _db.removegift(widget.id);
+                                Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          )
                         ],
                       )),
                 ),

@@ -62,6 +62,12 @@ class DatabaseService {
         'date': selectedDateTime});
   }
 
+//  Future<void> invitationMessage(String msg){
+//    return userCollection.doc(uid).update({
+//
+//    });
+//}
+
 
   Future<void> updateInviteStatus(String id){
     return userCollection.doc(uid).collection('guestList').doc(id).update({

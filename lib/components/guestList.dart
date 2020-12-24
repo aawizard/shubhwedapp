@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shubhwed/models/guest.dart';
+import 'package:shubhwed/models/user.dart';
 class guestList extends StatefulWidget {
 
   @override
@@ -17,6 +18,7 @@ class _guestListState extends State<guestList> {
   @override
   Widget build(BuildContext context) {
     var guests= Provider.of<List<Guest>>(context);
+    var user=Provider.of<users>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child:guests==null?Center(child: CircularProgressIndicator()): ListView(
@@ -57,6 +59,7 @@ class _guestListState extends State<guestList> {
                       email: guest.email,
                       gift: guest.gift,
                       id: guest.id,
+                      user: user,
                     );
                   },
                 ));
