@@ -63,6 +63,11 @@ class DatabaseService {
   }
 
 
+  Future<void> updateInviteStatus(String id){
+    return userCollection.doc(uid).collection('guestList').doc(id).update({
+      'invitationStatus':true,
+    });
+  }
 
   Future<void> addgift( dynamic gift) {
     return userCollection

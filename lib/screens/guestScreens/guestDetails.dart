@@ -72,18 +72,9 @@ Future<void> sendSms() async{
 }
   _guestDetailsState(
       this.name, this.imageUrl, this.email, this.phoneNo, this.gift, this.id);
-  void handleClick(String value) {
-    switch (value) {
-      case 'Send SMS':sendSms();
-        break;
-      case 'Send Email':sendEmail();
-        break;
-      case 'Send WhatsApp':sendwhatsapp();
-        break;
-    }
-  }
 
-  String giftRecieved;
+
+//  String giftRecieved;
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User>(context);
@@ -97,6 +88,16 @@ Future<void> sendSms() async{
       }).catchError(
             (error) => print("Some error occured while registering"),
       );
+    }
+    void handleClick(String value) {
+      switch (value) {
+        case 'Send SMS':sendSms();
+        break;
+        case 'Send Email':sendEmail();
+        break;
+        case 'Send WhatsApp':sendwhatsapp();
+        break;
+      }
     }
     return Scaffold(
       appBar: AppBar(

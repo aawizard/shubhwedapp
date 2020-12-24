@@ -19,7 +19,7 @@ class _guestListState extends State<guestList> {
     var guests= Provider.of<List<Guest>>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
+      child:guests==null?Center(child: CircularProgressIndicator()): ListView(
         children: guests.map((guest){
           return  Card(
             elevation: 2,

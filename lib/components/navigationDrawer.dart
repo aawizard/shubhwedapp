@@ -12,7 +12,7 @@ import 'package:shubhwed/services/db.dart';
 import 'package:shubhwed/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:shubhwed/utils/loading.dart';
 class MainWidget extends StatefulWidget {
   MainWidget({Key key, this.title, this.uid}) : super(key: key);
   final String title;

@@ -141,11 +141,11 @@ class _giftCardState extends State<giftCard> {
 
                     ),
                   ),
-                    Padding(
+                    Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         widget.giftName,
-                        maxLines: 2,
+                        maxLines: 1,
                         style: TextStyle(fontSize: 25,
                             fontWeight: FontWeight.w600),
                       ),

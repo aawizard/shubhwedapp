@@ -36,7 +36,7 @@ class DrawerItem extends StatelessWidget {
           splashColor: Color(0xFFEBE7F6),
           onTap: onPressed,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 15.0),
+            padding: EdgeInsets.symmetric(vertical: 15.0,horizontal: 20),
             child: Row(
 
               children: <Widget>[
@@ -45,7 +45,7 @@ class DrawerItem extends StatelessWidget {
                   child: Icon(
                       icon,
                       color: Colors.black,
-                    size: MediaQuery.of(context).size.width/13,
+                    size: MediaQuery.of(context).size.width/17,
 
                   ),
                 ),
@@ -54,7 +54,7 @@ class DrawerItem extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
-                    fontSize: MediaQuery.of(context).size.width/17,
+                    fontSize: MediaQuery.of(context).size.width/20,
                   ),
                 )
               ],

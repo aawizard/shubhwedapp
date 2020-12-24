@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'services/db.dart';
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -20,10 +22,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      print("completed");
-      setState(() {});
-    });
+//    Firebase.initializeApp().whenComplete(() {
+//      print("completed");
+//      setState(() {});
+//    });
   }
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    Firebase.initializeApp();
+//    Firebase.initializeApp();
     return MultiProvider(
       providers: [
         StreamProvider<User>.value(value:

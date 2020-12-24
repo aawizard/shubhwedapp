@@ -5,7 +5,6 @@ import 'package:shubhwed/components/drawer.dart';
 import 'package:shubhwed/utils/constants.dart';
 import '../utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_screen.dart';
 import 'package:shubhwed/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +60,6 @@ class _homeScreenState extends State<homeScreen>
     controller.addListener(() {
       setState(() {});
     });
-//    getDataFromFirestore(uid);
   }
 
   @override
@@ -69,6 +67,7 @@ class _homeScreenState extends State<homeScreen>
     DatabaseService _db=DatabaseService(widget.uid);
 
     var user= Provider.of<users>(context);
+    print(user);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -83,13 +82,22 @@ class _homeScreenState extends State<homeScreen>
           onPressed: widget.onMenuPressed,
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
+          FlatButton(
+            child: Row(
+              children: [
+                Text('Log Out',
+                  style: GoogleFonts.bitter(
+                    color: Colors.white
+                  ),
+                ),
+                Icon(Icons.logout,
+                color: Colors.white,),
+              ],
+            ),
+
             onPressed: () async{
               await _auth.signOut();
-              SharedPreferences.getInstance().then((value) {
-                value.clear();
-              });
+
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -102,7 +110,7 @@ class _homeScreenState extends State<homeScreen>
           ),
         ],
       ),
-      body: Container(
+      body:user==null?Center(child: CircularProgressIndicator()): Container(
         height: height,
         width: width,
         decoration: BoxDecoration(

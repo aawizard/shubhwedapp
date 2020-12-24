@@ -14,7 +14,7 @@ class Wrapper extends StatelessWidget {
 
     bool loggedIn= user !=null;
     print("user  : $user     " );
-    if (user == null){
+    if (user== null){
 
       return onboardingScreen();
     } else {

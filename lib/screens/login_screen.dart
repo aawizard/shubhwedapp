@@ -6,6 +6,7 @@ import 'package:shubhwed/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
 import 'package:shubhwed/services/auth.dart';
+import 'package:shubhwed/utils/loading.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
-
+  bool loading=false;
   String email, password;
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading?Loading():Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -129,6 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           try {
+                            setState(() {
+                              loading=true;
+                            });
                             AuthService auth = AuthService();
                             auth.signInWithEmailAndPassword(email, password);
 //                          UserCredential userCredential = await FirebaseAuth
@@ -142,6 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ));
                           } on FirebaseAuthException catch (e) {
+                            setState(() {
+                              loading=false;
+                            });
                             if (e.code == 'user-not-found') {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
@@ -154,10 +161,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Text("Wrong password provided.")));
                             }
                           } catch (e) {
+                            setState(() {
+                              loading=false;
+                            });
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Some error occured.")));
                           }
                         } else {
+                          setState(() {
+                            loading=false;
+                          });
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Enter all details"),
                           ));

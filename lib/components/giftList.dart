@@ -6,6 +6,8 @@ import 'package:shubhwed/models/gift.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shubhwed/components/giftCard.dart';
+import 'package:shubhwed/utils/loading.dart';
+
 class giftList extends StatefulWidget {
   @override
   _giftListState createState() => _giftListState();
@@ -21,7 +23,7 @@ class _giftListState extends State<giftList> {
     double width=MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: GridView.count(
+      child:gifts==null?Center(child: CircularProgressIndicator()): GridView.count(
         shrinkWrap: true,
         physics: ScrollPhysics(),
         crossAxisCount: 2,
