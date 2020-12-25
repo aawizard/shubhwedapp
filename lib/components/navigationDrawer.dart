@@ -76,7 +76,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
     return Scaffold(
       body: StreamProvider<users>.value(
         value: _db.streamUser(),
-        child: HiddenDrawer(
+        child: user==null?Center(child: CircularProgressIndicator()):HiddenDrawer(
           controller: _drawerController,
           header: Align(
             alignment: Alignment.centerLeft,

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shubhwed/models/guest.dart';
 import 'package:shubhwed/models/user.dart';
+import 'package:shubhwed/components/guestcard.dart';
 class guestList extends StatefulWidget {
 
   @override
@@ -23,49 +24,7 @@ class _guestListState extends State<guestList> {
       padding: const EdgeInsets.all(8.0),
       child:guests==null?Center(child: CircularProgressIndicator()): ListView(
         children: guests.map((guest){
-          return  Card(
-            elevation: 2,
-            child: ListTile(
-              leading: Container(
-                child: FadeInImage.assetNetwork(
-                  image: guest.imageURL,
-                  placeholder: 'assets/shubhwed.png',
-                ),
-              ),
-              title: Text(
-                guest.name,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.bitter(fontWeight: FontWeight.w700),
-              ),
-              subtitle: guest.invitationStatus == true
-                  ? Text(
-                "Invitation Sent",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.bitter(color: Colors.green),
-              )
-                  : Text(
-                "Invitation not Sent",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.bitter(color: Colors.red),
-              ),
-              trailing: Text("+${guest.guestNumber}"),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return guestDetails(
-                      name:guest.name,
-                      imageUrl: guest.imageURL,
-                      phoneNo:guest.phoneNo,
-                      email: guest.email,
-                      gift: guest.gift,
-                      id: guest.id,
-                      user: user,
-                    );
-                  },
-                ));
-              },
-            ),
-          );
+          return guestCard(guest: guest,user: user,);
         } ).toList(),
       )
 

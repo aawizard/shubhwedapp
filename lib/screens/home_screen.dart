@@ -70,7 +70,7 @@ class _homeScreenState extends State<homeScreen>
     print(user);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return user==null?Center(child: CircularProgressIndicator()): Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         elevation: 0,
@@ -110,7 +110,7 @@ class _homeScreenState extends State<homeScreen>
           ),
         ],
       ),
-      body:user==null?Center(child: CircularProgressIndicator()): Container(
+      body: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(

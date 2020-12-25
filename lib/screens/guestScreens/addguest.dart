@@ -31,6 +31,8 @@ class _addGuestState extends State<addGuest> {
       return _db.addguest({
         'email':email,
         'gift':'',
+        'message':'',
+        'RSVPStatus':false,
         'imageURL':imageUrl,
         'guestNumber':guestNo,
         'name':name,
