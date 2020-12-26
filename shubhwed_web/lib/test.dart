@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shubhwed_web/screens/homePage.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shubhwed_web/screens/new.dart';
 
 
 class GetUserName extends StatelessWidget {
@@ -30,7 +31,7 @@ class GetUserName extends StatelessWidget {
          
           Map<String, dynamic> data = snapshot.data.data();
      
-          return Scaffold(body: HomePage(data),backgroundColor:  Colors.red[50].withOpacity(0.2),);
+          return Scaffold(body: HomePage(data),backgroundColor:  Colors.red[100].withOpacity(0.2),);
         }
 
         return Scaffold(body: Center(child: CircularProgressIndicator()));

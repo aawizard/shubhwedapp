@@ -29,27 +29,9 @@ class _HomePageState extends State<HomePage> {
   @override
   
    void initState() {
-   FirebaseFirestore.instance.collection("users").get().then((querySnapshot) {
-  querySnapshot.docs.forEach((result) {
-    FirebaseFirestore.instance.
-        collection("users")
-        .doc(result.id)
-        .collection("pets")
-        .get()
-        .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-  
-        giftList.add(result.data());
-      });
-    });
-  });
-});
 
-setState(() {
-  giftList2=giftList;
-  print("hello");
-  print(giftList2);
-});
+    final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+    
     super.initState();
   }
 
@@ -194,42 +176,11 @@ setState(() {
                           SizedBox(
                             height: width * 0.02,
                           ),
-                          Text(
-                            'How it works ',
-                            style: TextStyle(
-                              fontSize: (22 / 720) *
-                                  MediaQuery.of(context).size.width,
-                              color: Colors.black,
-                            ),
-                          ),
+                         
                           SizedBox(
                             height: width * 0.01,
                           ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                InstructionItem(
-                                    Icons.info,
-                                    "Buy or contribute ",
-                                    "Choose your gift. Buy it,or contribute any  amount of your choice towards it",
-                                    width,
-                                    height),
-                                InstructionItem(
-                                    Icons.info,
-                                    "Instant notification",
-                                    'The couple is informed as soon as you get them a gift.Other guest will not know of your purchase',
-                                    width,
-                                    height),
-                                InstructionItem(
-                                    Icons.info,
-                                    "Direct Delivery",
-                                    "Gift and message is shipped directly to couple,unless you choose it to have it to sent to you ",
-                                    width,
-                                    height),
-                              ],
-                            ),
-                          ),
+                        
                           SizedBox(
                             height: width * 0.05,
                           ),
@@ -247,18 +198,31 @@ setState(() {
                           
                           Container(
                             width: width * 0.7,
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 10.0,
-                                      mainAxisSpacing: 8.0),
-                              itemBuilder: (BuildContext context, int index) {
-                                return GiftGrid(item, height, width);
-                              },
-                            ),
+                            child: StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.data['uid'])
+          .collection('giftList')
+          .snapshots(),
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? Text('PLease Wait')
+            : GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 8.0),
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot giftSnapshot = snapshot.data.documents[index];
+                  Map<String,dynamic> gift=giftSnapshot.data();
+                 
+                  return GiftGrid(gift, height, width);
+                },
+              );
+      },
+    ),
                           ),
                         ],
                       ),
