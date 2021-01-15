@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shubhwed_web/screens/homePage.dart';
-
+//import 'package:shubhwed_web/screens/homePage.dart';
+import 'screens/homePage.dart';
+import 'screens/new.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shubhwed_web/screens/new.dart';
+//import "package:shubhwed_web/screens/new.dart";
 
 
 class GetUserName extends StatelessWidget {

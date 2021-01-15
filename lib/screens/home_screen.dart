@@ -13,39 +13,25 @@ import 'package:shubhwed/models/user.dart';
 class homeScreen extends DrawerContent {
   static const String id = 'home_screen';
 
-  final String uid;
 
-  homeScreen({this.uid});
+  homeScreen();
 
 
   @override
-  _homeScreenState createState() => _homeScreenState(uid);
+  _homeScreenState createState() => _homeScreenState();
 }
 
 class _homeScreenState extends State<homeScreen>
     with SingleTickerProviderStateMixin {
-  final String uid;
+//  final String uid;
   AuthService _auth=AuthService();
 
-//  String bride ;
-//  String groom;
-//  String date ;
   FirebaseFirestore firestore;
   Animation animation;
   AnimationController controller;
 //  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  _homeScreenState(this.uid);
-//  Future<void> getDataFromFirestore(String uid) {
-//    users.doc(uid).get().then((doc) {
-//      setState(() {
-//        bride = doc.get('brideName');
-//        groom = doc.get('brideGroomName');
-//        date = doc.get('date').toString().split(" ")[0];
-//      });
-//    });
-//  }
-
+  _homeScreenState();
 
 
   @override
@@ -64,10 +50,11 @@ class _homeScreenState extends State<homeScreen>
 
   @override
   Widget build(BuildContext context) {
-    DatabaseService _db=DatabaseService(widget.uid);
-
     var user= Provider.of<users>(context);
-    print(user);
+//    DatabaseService _db=DatabaseService(user.uid);
+
+
+//    print(user);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return user==null?Center(child: CircularProgressIndicator()): Scaffold(
@@ -110,7 +97,7 @@ class _homeScreenState extends State<homeScreen>
           ),
         ],
       ),
-      body: Container(
+      body:user.uid==null?Center(child: CircularProgressIndicator()): Container(
         height: height,
         width: width,
         decoration: BoxDecoration(

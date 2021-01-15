@@ -12,42 +12,33 @@ import 'package:shubhwed/services/db.dart';
 import 'package:shubhwed/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+
 class MainWidget extends StatefulWidget {
-  MainWidget({Key key, this.title, this.uid}) : super(key: key);
-  final String title;
-  final String uid;
+//  MainWidget() : super(key: key);
+
 
   @override
-  _MainWidgetState createState() => _MainWidgetState(uid);
+  _MainWidgetState createState() => _MainWidgetState();
 }
 
 class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
-  final String uid;
+
   HiddenDrawerController _drawerController;
 
-  _MainWidgetState(this.uid);
-//  User userLoad = new User();
-////  Future fetchUserDetailsFromSharedPref() async {
-////    var result =
-////    await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
-////    Map valueMap = json.decode(result);
-////    User user = User.fromJson(valueMap);
-////    setState(() {
-////      userLoad = user;
-////    });
-////  }
+  _MainWidgetState();
 
   @override
   void initState() {
     super.initState();
 //    fetchUserDetailsFromSharedPref();
     _drawerController = HiddenDrawerController(
-      initialPage: homeScreen(uid: uid,),
+      initialPage: homeScreen(),
       items: [
         DrawerItem(
           text: 'Home',
           icon: Icons.home,
-          page: homeScreen(uid: uid,),
+          page: homeScreen(),
         ),
         DrawerItem(
           text: 'GuestList',

@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shubhwed_web/widgets/fittedText.dart';
+import "package:shubhwed_web/lib/widgets/fittedText.dart";
 import 'package:shubhwed_web/widgets/instruction_item.dart';
 import 'package:shubhwed_web/widgets/giftGrid.dart';
 import 'package:shubhwed_web/models/item.dart';
-
-
-
 import 'package:shubhwed_web/widgets/guestDetails.dart';
 
 class HomePage extends StatefulWidget {

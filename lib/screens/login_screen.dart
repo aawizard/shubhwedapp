@@ -6,6 +6,7 @@ import 'package:shubhwed/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shubhwed/components/navigationDrawer.dart';
 import 'package:shubhwed/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shubhwed/utils/loading.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading() :Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -45,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       IconButton(
                         icon: Icon(Icons.close),
                         color: Colors.grey,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Text(
                         "Log In",
@@ -134,16 +137,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               loading=true;
                             });
                             AuthService auth = AuthService();
-                            auth.signInWithEmailAndPassword(email, password);
+                           auth.signInWithEmailAndPassword(email, password);
+
 //                          UserCredential userCredential = await FirebaseAuth
 //                              .instance
 //                              .signInWithEmailAndPassword(
 //                                  email: email, password: password);
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(
-                              builder: (context) {
-                                return MainWidget();
-                              },
+                              builder: (context) => MainWidget()
+                              ,
                             ));
                           } on FirebaseAuthException catch (e) {
                             setState(() {

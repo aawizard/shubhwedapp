@@ -13,13 +13,10 @@ class Wrapper extends StatelessWidget {
 
 
     bool loggedIn= user !=null;
-    print("user  : $user     " );
     if (user== null){
-
       return onboardingScreen();
     } else {
-
-      return MainWidget(uid: user.uid,);
+      return MainWidget();
     }
   }
 }

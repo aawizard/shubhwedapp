@@ -12,8 +12,8 @@ class AuthService {
 
   // auth change user stream
   Stream<users> get user {
-    return _auth.authStateChanges()
-    //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+    return
+      _auth.authStateChanges()
         .map(_userFromFirebaseUser);
   }
 
@@ -69,6 +69,11 @@ class AuthService {
       print(error.toString());
       return null;
     }
+  }
+  getUser() async {
+    User user = await _auth.currentUser;
+
+    return user.uid;
   }
 
 }

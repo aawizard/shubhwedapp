@@ -45,7 +45,9 @@ class _signUpScreenState extends State<signUpScreen> {
                       IconButton(
                         icon: Icon(Icons.close),
                         color: Colors.grey,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Text(
                         "Sign Up",
